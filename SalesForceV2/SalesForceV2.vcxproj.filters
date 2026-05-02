@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Archivos de origen">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Archivos de encabezado">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Archivos de recursos">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Service">
+      <UniqueIdentifier>{df792d1a-ec3b-44f1-b7b1-bc0b5eec2359}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model">
+      <UniqueIdentifier>{32a8559e-ba2b-43ec-b988-4356d7310833}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Recurso">
+      <UniqueIdentifier>{328559bb-bac9-494b-909b-2456568dccb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Modulo 1">
+      <UniqueIdentifier>{c03066b4-1782-4069-80c9-93ab8918094d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Modulo 2">
+      <UniqueIdentifier>{1a72dcab-cfad-4541-b70c-ffe3bcf6a229}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Estructura de Datos">
+      <UniqueIdentifier>{7f645926-b8dc-484d-af93-7bdae9917cbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Model\Modulo 3">
+      <UniqueIdentifier>{5aa44698-10f8-4f67-9603-64d86f54e742}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app.rc">
+      <Filter>Archivos de recursos</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resource.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Archivos de encabezado</Filter>
+    </ClInclude>
+    <ClInclude Include="Contacto.h">
+      <Filter>Model\Modulo 1</Filter>
+    </ClInclude>
+    <ClInclude Include="Cuenta.h">
+      <Filter>Model\Modulo 1</Filter>
+    </ClInclude>
+    <ClInclude Include="Direccion.h">
+      <Filter>Model\Modulo 1</Filter>
+    </ClInclude>
+    <ClInclude Include="Interaccion.h">
+      <Filter>Model\Modulo 1</Filter>
+    </ClInclude>
+    <ClInclude Include="UsuarioCRM.h">
+      <Filter>Model\Modulo 1</Filter>
+    </ClInclude>
+    <ClInclude Include="Cliente_Potencial.h">
+      <Filter>Model\Modulo 2</Filter>
+    </ClInclude>
+    <ClInclude Include="Contrato.h">
+      <Filter>Model\Modulo 2</Filter>
+    </ClInclude>
+    <ClInclude Include="Cotizacion.h">
+      <Filter>Model\Modulo 2</Filter>
+    </ClInclude>
+    <ClInclude Include="Oportunidad.h">
+      <Filter>Model\Modulo 2</Filter>
+    </ClInclude>
+    <ClInclude Include="Producto.h">
+      <Filter>Model\Modulo 2</Filter>
+    </ClInclude>
+    <ClInclude Include="Caso.h">
+      <Filter>Model\Modulo 3</Filter>
+    </ClInclude>
+    <ClInclude Include="Evento.h">
+      <Filter>Model\Modulo 3</Filter>
+    </ClInclude>
+    <ClInclude Include="Historial.h">
+      <Filter>Model\Modulo 3</Filter>
+    </ClInclude>
+    <ClInclude Include="Solucion.h">
+      <Filter>Model\Modulo 3</Filter>
+    </ClInclude>
+    <ClInclude Include="Tarea.h">
+      <Filter>Model\Modulo 3</Filter>
+    </ClInclude>
+    <ClInclude Include="Cola.h">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClInclude>
+    <ClInclude Include="Listar.h">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClInclude>
+    <ClInclude Include="Nodo.h">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClInclude>
+    <ClInclude Include="Pila.h">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClInclude>
+    <ClInclude Include="SistemaCRM.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorVenta.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorSoporte.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorCliente.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="GestorArchivos.h">
+      <Filter>Service</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AssemblyInfo.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="SalesForceV2.cpp" />
+    <ClCompile Include="Contacto.cpp">
+      <Filter>Model\Modulo 1</Filter>
+    </ClCompile>
+    <ClCompile Include="Cuenta.cpp">
+      <Filter>Model\Modulo 1</Filter>
+    </ClCompile>
+    <ClCompile Include="Direccion.cpp">
+      <Filter>Model\Modulo 1</Filter>
+    </ClCompile>
+    <ClCompile Include="Interaccion.cpp">
+      <Filter>Model\Modulo 1</Filter>
+    </ClCompile>
+    <ClCompile Include="UsuarioCRM.cpp">
+      <Filter>Model\Modulo 1</Filter>
+    </ClCompile>
+    <ClCompile Include="Cliente_Potencial.cpp">
+      <Filter>Model\Modulo 2</Filter>
+    </ClCompile>
+    <ClCompile Include="Contrato.cpp">
+      <Filter>Model\Modulo 2</Filter>
+    </ClCompile>
+    <ClCompile Include="Cotizacion.cpp">
+      <Filter>Model\Modulo 2</Filter>
+    </ClCompile>
+    <ClCompile Include="Oportunidad.cpp">
+      <Filter>Model\Modulo 2</Filter>
+    </ClCompile>
+    <ClCompile Include="Producto.cpp">
+      <Filter>Model\Modulo 2</Filter>
+    </ClCompile>
+    <ClCompile Include="Caso.cpp">
+      <Filter>Model\Modulo 3</Filter>
+    </ClCompile>
+    <ClCompile Include="Evento.cpp">
+      <Filter>Model\Modulo 3</Filter>
+    </ClCompile>
+    <ClCompile Include="Historial.cpp">
+      <Filter>Model\Modulo 3</Filter>
+    </ClCompile>
+    <ClCompile Include="Solucion.cpp">
+      <Filter>Model\Modulo 3</Filter>
+    </ClCompile>
+    <ClCompile Include="Tarea.cpp">
+      <Filter>Model\Modulo 3</Filter>
+    </ClCompile>
+    <ClCompile Include="Cola.cpp">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClCompile>
+    <ClCompile Include="Listar.cpp">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClCompile>
+    <ClCompile Include="Nodo.cpp">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClCompile>
+    <ClCompile Include="Pila.cpp">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorArchivos.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorSoporte.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorCliente.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="GestorVenta.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="SistemaCRM.cpp">
+      <Filter>Service</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="app.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
