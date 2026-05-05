@@ -95,10 +95,10 @@
     <ClInclude Include="Cola.h">
       <Filter>Model\Estructura de Datos</Filter>
     </ClInclude>
-    <ClInclude Include="Listar.h">
+    <ClInclude Include="ListaDoble.h">
       <Filter>Model\Estructura de Datos</Filter>
     </ClInclude>
-    <ClInclude Include="Nodo.h">
+    <ClInclude Include="NodoD.h">
       <Filter>Model\Estructura de Datos</Filter>
     </ClInclude>
     <ClInclude Include="Pila.h">
@@ -118,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="GestorArchivos.h">
       <Filter>Service</Filter>
+    </ClInclude>
+    <ClInclude Include="NodoS.h">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClInclude>
+    <ClInclude Include="ListaSimple.h">
+      <Filter>Model\Estructura de Datos</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -176,10 +182,10 @@
     <ClCompile Include="Cola.cpp">
       <Filter>Model\Estructura de Datos</Filter>
     </ClCompile>
-    <ClCompile Include="Listar.cpp">
+    <ClCompile Include="ListaDoble.cpp">
       <Filter>Model\Estructura de Datos</Filter>
     </ClCompile>
-    <ClCompile Include="Nodo.cpp">
+    <ClCompile Include="NodoD.cpp">
       <Filter>Model\Estructura de Datos</Filter>
     </ClCompile>
     <ClCompile Include="Pila.cpp">
@@ -199,6 +205,12 @@
     </ClCompile>
     <ClCompile Include="SistemaCRM.cpp">
       <Filter>Service</Filter>
+    </ClCompile>
+    <ClCompile Include="NodoS.cpp">
+      <Filter>Model\Estructura de Datos</Filter>
+    </ClCompile>
+    <ClCompile Include="ListaSimple.cpp">
+      <Filter>Model\Estructura de Datos</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
