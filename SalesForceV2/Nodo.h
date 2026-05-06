@@ -9,11 +9,12 @@ class Nodo
 private:
     T dato;
     Nodo<T>* siguiente;
-
+    Nodo<T>* anterior;
 public:
     Nodo(T dato) {
         this->dato = dato;
         this->siguiente = nullptr;
+        this->anterior = nullptr;
     }
 
     T getDato() { return dato; }
@@ -21,4 +22,7 @@ public:
 
     Nodo<T>* getSiguiente() { return siguiente; }
     void setSiguiente(Nodo<T>* siguiente) { this->siguiente = siguiente; }
+
+    Nodo<T>* getAnterior() { return anterior; }
+    void setAnterior(Nodo<T>* anterior) { this->anterior = anterior; }
 };
