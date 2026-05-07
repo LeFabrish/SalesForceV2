@@ -1,4 +1,3 @@
-// Archivo: ListaDoble.h
 #pragma once
 #include "NodoD.h"
 #include "iostream"
@@ -94,9 +93,6 @@ public:
                 }
                 actual = actual->siguiente;
             }
-
-    int getLongitud() {
-        return longitud;
         }
     }
 

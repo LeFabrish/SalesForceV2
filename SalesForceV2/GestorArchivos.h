@@ -1,46 +1,47 @@
-// Archivo: GestorArchivos.h
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <string>
-#include "Listar.h" // Para el manejo de lineas reemplazamos el vector.h por nuestra estructura de datos
-
+#include "iostream"
+#include "fstream"
+#include "string"
+#include "ListaSimple.h"
 using namespace std;
 
-class GestorArchivos
-{
+class GestorArchivos {
 public:
     GestorArchivos() {}
     ~GestorArchivos() {}
 
-    Lista<string>* cargarLineas(string rutaArchivo) {
-        Lista<string>* lineas = new Lista<string>();
+    // Carga líneas de un archivo .txt en una ListaSimple<string>
+    ListaSimple<string>* cargarLineas(string rutaArchivo) {
+        ListaSimple<string>* lineas = new ListaSimple<string>();
         ifstream archivo(rutaArchivo);
         string linea;
 
         if (archivo.is_open()) {
             while (getline(archivo, linea)) {
-                lineas->agregar(linea);
+                lineas->insertar(linea);
             }
             archivo.close();
         }
         else {
-            cout << "No se pudo abrir el archivo " << rutaArchivo << " para lectura." << endl;
+            cout << "  [!] No se pudo abrir: " << rutaArchivo << endl;
         }
         return lineas;
     }
 
-    void guardarLineas(string rutaArchivo, Lista<string>* lineas) {
-        ofstream archivo(rutaArchivo); // Esto sobrescribe el archivo con la información más reciente
+    // Guarda todas las líneas de la lista en un archivo .txt
+    void guardarLineas(string rutaArchivo, ListaSimple<string>* lineas) {
+        ofstream archivo(rutaArchivo);
 
         if (archivo.is_open()) {
-            for (int i = 0; i < lineas->getLongitud(); i++) {
-                archivo << lineas->obtener(i) << "\n";
+            NodoS<string>* actual = lineas->getCabeza();
+            while (actual != nullptr) {
+                archivo << actual->dato << "\n";
+                actual = actual->siguiente;
             }
             archivo.close();
         }
         else {
-            cout << "No se pudo abrir el archivo " << rutaArchivo << " para escritura." << endl;
+            cout << "   No se pudo guardar en: " << rutaArchivo << endl;
         }
     }
 };

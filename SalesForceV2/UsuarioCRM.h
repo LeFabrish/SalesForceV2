@@ -1,36 +1,67 @@
-// Archivo: UsuarioCRM.h
 #pragma once
-#include <iostream>
-#include <string>
-
+#include "iostream"
+#include "string"
 using namespace std;
 
-class UsuarioCRM
-{
+class UsuarioCRM {
 private:
-    int idUsuario;
-    string nombreUsuario;
-    string contrasenia;
+    int id;
+    string nombre;
+    string apellido;
+    string rol;         // "Vendedor", "Soporte", "Admin"
+    string username;
+    string password;
 
 public:
     UsuarioCRM() {
-        this->idUsuario = 0;
-        this->nombreUsuario = "";
-        this->contrasenia = "";
+        id = 0;
+        nombre = "";
+        apellido = "";
+        rol = "";
+        username = "";
+        password = "";
     }
 
-    UsuarioCRM(int id, string nombre, string contrasenia) {
-        this->idUsuario = id;
-        this->nombreUsuario = nombre;
-        this->contrasenia = contrasenia;
+    UsuarioCRM(int id, string nombre, string apellido,
+        string rol, string username, string password) {
+        this->id = id;
+        this->nombre = nombre;
+        this->apellido = apellido;
+        this->rol = rol;
+        this->username = username;
+        this->password = password;
     }
 
-    // Se agregaron los tipos de retorno que faltaban
-    int getIdUsuario() { return this->idUsuario; }
-    string getNombreUsuario() { return this->nombreUsuario; }
-    string getContrasenia() { return this->contrasenia; }
+    // Getters
+    int getId() { return id; }
+    string getNombre() { return nombre; }
+    string getApellido() { return apellido; }
+    string getRol() { return rol; }
+    string getUsername() { return username; }
+    string getPassword() { return password; }
 
-    void setIdUsuario(int id) { this->idUsuario = id; }
-    void setNombreUsuario(string nombre) { this->nombreUsuario = nombre; }
-    void setContrasenia(string contrasenia) { this->contrasenia = contrasenia; }
+    // Setters
+    void setId(int i) { id = i; }
+    void setNombre(string n) { nombre = n; }
+    void setApellido(string a) { apellido = a; }
+    void setRol(string r) { rol = r; }
+    void setUsername(string u) { username = u; }
+    void setPassword(string p) { password = p; }
+
+    void mostrar() {
+        cout << "  ID        : " << id << endl;
+        cout << "  Nombre    : " << nombre << " " << apellido << endl;
+        cout << "  Rol       : " << rol << endl;
+        cout << "  Username  : " << username << endl;
+        cout << "  ----------------------------------------" << endl;
+    }
+
+    void ingresar(int nuevoId) {
+        id = nuevoId;
+        cout << "  Nombre    : "; cin >> nombre;
+        cout << "  Apellido  : "; cin >> apellido;
+        cout << "  Rol (Vendedor/Soporte/Admin) : "; cin >> rol;
+        cout << "  Username  : "; cin >> username;
+        cout << "  Password  : "; cin >> password;
+    }
 };
