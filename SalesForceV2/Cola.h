@@ -1,13 +1,14 @@
 // Archivo: Cola.h
 #pragma once
-#include "Nodo.h"
+#include "NodoS.h"
+#include "iostream"
+using namespace std;
 
 template <typename T>
-class Cola
-{
+class Cola {
 private:
-    Nodo<T>* frente;
-    Nodo<T>* final;
+    NodoS<T>* frente;
+    NodoS<T>* final;
     int tamanio;
 
 public:
@@ -17,40 +18,37 @@ public:
         tamanio = 0;
     }
 
-    ~Cola() {
-        while (!estaVacia()) {
-            desencolar();
-        }
-    }
-
-    void encolar(T elemento) {
-        Nodo<T>* nuevoNodo = new Nodo<T>(elemento);
-        if (estaVacia()) {
-            frente = nuevoNodo;
+    void enqueue(T dato) {
+        NodoS<T>* nuevo = new NodoS<T>(dato);
+        if (final == nullptr) {
+            frente = nuevo;
+            final = nuevo;
         }
         else {
-            final->setSiguiente(nuevoNodo);
+            final->siguiente = nuevo;
+            final = nuevo;
         }
-        final = nuevoNodo;
         tamanio++;
     }
 
-    T desencolar() {
-        if (estaVacia()) throw "La cola esta vacia";
-        Nodo<T>* temp = frente;
-        T dato = temp->getDato();
-        frente = frente->getSiguiente();
-        if (frente == nullptr) {
-            final = nullptr;
-        }
+    void dequeue() {
+        if (frente == nullptr) return;
+        NodoS<T>* temp = frente;
+        frente = frente->siguiente;
+        if (frente == nullptr) final = nullptr;
         delete temp;
         tamanio--;
-        return dato;
     }
 
-    bool estaVacia() {
-        return frente == nullptr;
-    }
-
+    T& getFrente() { return frente->dato; }
+    bool estaVacia() { return frente == nullptr; }
     int getTamanio() { return tamanio; }
+
+    void mostrar() {
+        NodoS<T>* actual = frente;
+        while (actual != nullptr) {
+            actual->dato.mostrar();
+            actual = actual->siguiente;
+        }
+    }
 };

@@ -1,35 +1,58 @@
 // Archivo: Direccion.h
 #pragma once
-#include <iostream>
-#include <string>
-
+#include "iostream"
+#include "string"
 using namespace std;
 
-class Direccion
-{
+class Direccion {
 private:
+    string pais;
+    string ciudad;
     string distrito;
     string calle;
-    string referencia;
 
 public:
+    // Constructor vacío
     Direccion() {
-        this->distrito = "";
-        this->calle = "";
-        this->referencia = "";
+        pais = "";
+        ciudad = "";
+        distrito = "";
+        calle = "";
     }
 
-    Direccion(string distrito, string calle, string referencia) {
+    // Constructor con parámetros
+    Direccion(string pais, string ciudad, string distrito, string calle) {
+        this->pais = pais;
+        this->ciudad = ciudad;
         this->distrito = distrito;
         this->calle = calle;
-        this->referencia = referencia;
     }
 
-    string getDistrito() { return this->distrito; }
-    string getCalle() { return this->calle; }
-    string getReferencia() { return this->referencia; }
+    // Getters
+    string getPais() { return pais; }
+    string getCiudad() { return ciudad; }
+    string getDistrito() { return distrito; }
+    string getCalle() { return calle; }
 
-    void setDistrito(string distrito) { this->distrito = distrito; }
-    void setCalle(string calle) { this->calle = calle; }
-    void setReferencia(string referencia) { this->referencia = referencia; }
+    // Setters
+    void setPais(string p) { pais = p; }
+    void setCiudad(string c) { ciudad = c; }
+    void setDistrito(string d) { distrito = d; }
+    void setCalle(string ca) { calle = ca; }
+
+    // Mostrar
+    void mostrar() {
+        cout << "   Pais     : " << pais << endl;
+        cout << "   Ciudad   : " << ciudad << endl;
+        cout << "   Distrito : " << distrito << endl;
+        cout << "   Calle    : " << calle << endl;
+    }
+
+    // Ingresar por consola
+    void ingresar() {
+        cout << "   Pais     : "; cin >> pais;
+        cout << "   Ciudad   : "; cin >> ciudad;
+        cout << "   Distrito : "; cin >> distrito;
+        cout << "   Calle    : "; cin >> calle;
+    }
 };
