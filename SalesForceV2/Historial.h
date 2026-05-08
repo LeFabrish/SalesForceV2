@@ -32,8 +32,4 @@ public:
     void mostrar() const {
         cout << "Historial [" << id << "] Modulo: " << moduloAsociado << " | Accion: " << accion << " | Fecha: " << fecha << endl;
     }
-
-    bool operator>(const Historial& h) const { return id > h.id; }
-    bool operator<(const Historial& h) const { return id < h.id; }
-    bool operator==(const Historial& h) const { return id == h.id; }
 };
