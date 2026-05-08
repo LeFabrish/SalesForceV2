@@ -1,20 +1,54 @@
 #pragma once
-#include <iostream>
-#include <string>
+#include "iostream"
+#include "string"
 using namespace std;
 
 class Contrato {
-public:
-    int idContrato;
+private:
+    int id;
     string fechaFirma;
     string terminos;
+    double montoTotal;
 
-    Contrato(int id = 0, string fecha = "", string t = "Estándar")
-        : idContrato(id), fechaFirma(fecha), terminos(t) {
+public:
+    Contrato() {
+        id = 0;
+        fechaFirma = "";
+        terminos = "";
+        montoTotal = 0.0;
     }
 
-    void mostrar() const {
-        cout << "Contrato ID: " << idContrato << " | Firmado: " << fechaFirma
-            << " | Términos: " << terminos << endl;
+    Contrato(int id, string fechaFirma, string terminos, double montoTotal) {
+        this->id = id;
+        this->fechaFirma = fechaFirma;
+        this->terminos = terminos;
+        this->montoTotal = montoTotal;
+    }
+
+    // Getters
+    int getId() { return id; }
+    string getFechaFirma() { return fechaFirma; }
+    string getTerminos() { return terminos; }
+    double getMontoTotal() { return montoTotal; }
+
+    // Setters
+    void setId(int i) { id = i; }
+    void setFechaFirma(string f) { fechaFirma = f; }
+    void setTerminos(string t) { terminos = t; }
+    void setMontoTotal(double m) { montoTotal = m; }
+
+    void mostrar() {
+        cout << "  ID          : " << id << endl;
+        cout << "  Fecha Firma : " << fechaFirma << endl;
+        cout << "  Terminos    : " << terminos << endl;
+        cout << "  Monto Total : $" << montoTotal << endl;
+        cout << "  ----------------------------------------" << endl;
+    }
+
+    void ingresar(int nuevoId) {
+        id = nuevoId;
+        cout << "  Fecha Firma (DD/MM/AAAA) : "; cin >> fechaFirma;
+        cout << "  Terminos                 : "; cin >> terminos;
+        cout << "  Monto Total              : "; cin >> montoTotal;
     }
 };
