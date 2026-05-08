@@ -1,21 +1,54 @@
 #pragma once
-#include <iostream>
-#include <string>
+#include "iostream"
+#include "string"
 using namespace std;
-class Oportunidad
-{
-public:
+
+class Oportunidad {
+private:
+    int id;
     string titulo;
     double valorEsperado;
-    string fase; 
+    string fase;    // "Prospeccion", "Negociacion", "Cerrado"
 
-    Oportunidad(string t = "", double v = 0.0, string f = "Prospección")
-        : titulo(t), valorEsperado(v), fase(f) {
+public:
+    Oportunidad() {
+        id = 0;
+        titulo = "";
+        valorEsperado = 0.0;
+        fase = "Prospeccion";
     }
 
-    void mostrar() const {
-        cout << "Trato: " << titulo << " | Valor: $" << valorEsperado
-            << " | Fase: [" << fase << "]" << endl;
+    Oportunidad(int id, string titulo, double valorEsperado, string fase) {
+        this->id = id;
+        this->titulo = titulo;
+        this->valorEsperado = valorEsperado;
+        this->fase = fase;
+    }
+
+    // Getters
+    int getId() { return id; }
+    string getTitulo() { return titulo; }
+    double getValorEsperado() { return valorEsperado; }
+    string getFase() { return fase; }
+
+    // Setters
+    void setId(int i) { id = i; }
+    void setTitulo(string t) { titulo = t; }
+    void setValorEsperado(double v) { valorEsperado = v; }
+    void setFase(string f) { fase = f; }
+
+    void mostrar() {
+        cout << "  ID             : " << id << endl;
+        cout << "  Titulo         : " << titulo << endl;
+        cout << "  Valor Esperado : $" << valorEsperado << endl;
+        cout << "  Fase           : " << fase << endl;
+        cout << "  ----------------------------------------" << endl;
+    }
+
+    void ingresar(int nuevoId) {
+        id = nuevoId;
+        cout << "  Titulo                              : "; cin >> titulo;
+        cout << "  Valor Esperado                      : "; cin >> valorEsperado;
+        cout << "  Fase (Prospeccion/Negociacion/Cerrado): "; cin >> fase;
     }
 };
-

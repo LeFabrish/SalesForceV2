@@ -1,6 +1,6 @@
 #pragma once
-#include <iostream>
-#include <string>
+#include "iostream"
+#include "string"
 #include "Cola.h"
 #include "ListaDoble.h"
 #include "ListaSimple.h"
@@ -9,97 +9,113 @@
 #include "Producto.h"
 #include "Cotizacion.h"
 #include "Contrato.h"
-class GestorVenta
-{
+using namespace std;
+
+class GestorVenta {
 private:
-    Cola<Cliente_Potencial> colaClientes;
-    ListaDoble<Oportunidad> listaOportunidades;
-    ListaSimple<Producto> catalogoProductos;
-    ListaSimple<Cotizacion> listaCotizaciones;
-    ListaSimple<Contrato> listaContratos;
+    Cola<Cliente_Potencial>   colaClientes;
+    ListaDoble<Oportunidad>   listaOportunidades;
+    ListaSimple<Producto>     catalogoProductos;
+    ListaSimple<Cotizacion>   listaCotizaciones;
+    ListaSimple<Contrato>     listaContratos;
+    int contadorCliente;
+    int contadorOportunidad;
+    int contadorProducto;
+    int contadorCotizacion;
+    int contadorContrato;
+
 public:
     GestorVenta() {
-      
-	}
+        contadorCliente = 1;
+        contadorOportunidad = 1;
+        contadorProducto = 1;
+        contadorCotizacion = 1;
+        contadorContrato = 1;
+    }
 
-    void registrarClientes(string nombre, string correo, string interes) {
-        colaClientes.enqueue(Cliente_Potencial(nombre, correo, interes));
-        cout << "[+] Cliente registrado en la fila de atencion.\n";
+    void registrarCliente() {
+        Cliente_Potencial c;
+        cout << "\n  === NUEVO CLIENTE POTENCIAL ===" << endl;
+        c.ingresar(contadorCliente++);
+        colaClientes.enqueue(c);
+        cout << "  [OK] Cliente registrado en la cola." << endl;
     }
 
     void atenderSiguienteCliente() {
         if (colaClientes.estaVacia()) {
-            cout << "[-] No hay clientes pendientes en la cola.\n";
+            cout << "  [!] No hay clientes pendientes en la cola." << endl;
             return;
         }
-        cout << "\n>>> Atendiendo al siguiente prospecto:\n";
+        cout << "\n  === ATENDIENDO CLIENTE ===" << endl;
         colaClientes.getFrente().mostrar();
         colaClientes.dequeue();
     }
 
-    void crearOportunidad(string titulo, double valor, string fase = "Prospeccion") {
-        listaOportunidades.insertar(Oportunidad(titulo, valor, fase));
-        cout << "[+] Nueva oportunidad comercial creada.\n";
+    void crearOportunidad() {
+        Oportunidad o;
+        cout << "\n  === NUEVA OPORTUNIDAD ===" << endl;
+        o.ingresar(contadorOportunidad++);
+        listaOportunidades.insertar(o);
+        cout << "  [OK] Oportunidad creada." << endl;
     }
 
     void mostrarEmbudo() {
-        cout << endl<<"--- EMBUDO DE VENTAS (Oportunidades) ---"<<endl;
+        cout << "\n  === EMBUDO DE VENTAS ===" << endl;
+        if (listaOportunidades.estaVacia()) {
+            cout << "  No hay oportunidades registradas." << endl;
+            return;
+        }
         listaOportunidades.mostrar();
     }
 
+    void buscarOportunidad() {
+        string titulo;
+        cout << "\n  Titulo a buscar: "; cin >> titulo;
 
-    void buscarOportunidadPorTitulo(string tituloBuscado) {
-        auto criterioBusqueda = [tituloBuscado](Oportunidad op) {
-            return op.titulo == tituloBuscado;
+        // Lambda de búsqueda por título
+        auto criterio = [titulo](Oportunidad op) {
+            return op.getTitulo() == titulo;
             };
 
-        auto nodoEncontrado = listaOportunidades.buscar(criterioBusqueda);
-        if (nodoEncontrado) {
-            cout << endl<<"[!] Oportunidad Encontrada:"<<endl;
-            nodoEncontrado->dato.mostrar();
+        NodoD<Oportunidad>* resultado = listaOportunidades.buscar(criterio);
+        if (resultado != nullptr) {
+            cout << "\n  [Encontrado]" << endl;
+            resultado->dato.mostrar();
         }
         else {
-            cout << endl<<"[-] Oportunidad '" << tituloBuscado << "' no encontrada."<<endl;
+            cout << "  [!] Oportunidad no encontrada." << endl;
         }
     }
 
-
     void ordenarOportunidadesPorValor() {
-       
-        auto comparadorMayorMenor = [](Oportunidad a, Oportunidad b) {
-            return a.valorEsperado < b.valorEsperado;
+        // Lambda de ordenamiento mayor a menor
+        auto comparar = [](Oportunidad a, Oportunidad b) {
+            return a.getValorEsperado() < b.getValorEsperado();
             };
-
-        listaOportunidades.ordenar(comparadorMayorMenor);
-        cout << "[+] Oportunidades ordenadas por valor esperado."<<endl;
+        listaOportunidades.ordenar(comparar);
+        cout << "  [OK] Oportunidades ordenadas por valor." << endl;
     }
 
-
-
-    void agregarProducto(int id, string nombre, double precio) {
-        catalogoProductos.insertar(Producto(id, nombre, precio));
-        cout << "[+] Producto '" << nombre << "' agregado al catalogo."<<endl;
+    void agregarProducto() {
+        Producto p;
+        cout << "\n  === NUEVO PRODUCTO ===" << endl;
+        p.ingresar(contadorProducto++);
+        catalogoProductos.insertar(p);
+        cout << "  [OK] Producto agregado al catalogo." << endl;
     }
 
-    void generarCotizacion(int num, double total, string fecha) {
-        listaCotizaciones.insertar(Cotizacion(num, total, fecha));
-        cout << "[+] Cotizacion #" << num << " generada."<<endl;
-    }
+    void mostrarProductosPremium() {
+        double precioMinimo;
+        cout << "\n  Precio minimo para filtrar: "; cin >> precioMinimo;
 
-    void cerrarContrato(int id, string fecha, string terminos) {
-        listaContratos.insertar(Contrato(id, fecha, terminos));
-        cout << "[+] Contrato ID " << id << " firmado y cerrado con exito."<<endl;
-    }
+        cout << "\n  === PRODUCTOS PREMIUM (Mayor a $" << precioMinimo << ") ===" << endl;
 
-    void mostrarProductosPremium(double precioMinimo) {
-        cout << "\n--- PRODUCTOS PREMIUM (Mayor a S/. " << precioMinimo << ") ---"<<endl;
-        auto actual = catalogoProductos.getCabeza();
-
-      
+        // Lambda de filtro premium
         auto esPremium = [precioMinimo](Producto p) {
-            return p.precio >= precioMinimo;
+            return p.getPrecio() >= precioMinimo;
             };
 
+        NodoS<Producto>* actual = catalogoProductos.getCabeza();
         bool hayPremium = false;
         while (actual != nullptr) {
             if (esPremium(actual->dato)) {
@@ -108,95 +124,64 @@ public:
             }
             actual = actual->siguiente;
         }
-        if (!hayPremium) cout << "No hay productos que superen ese precio."<<endl;
+        if (!hayPremium)
+            cout << "  No hay productos que superen ese precio." << endl;
     }
+
+    void generarCotizacion() {
+        Cotizacion c;
+        cout << "\n  === NUEVA COTIZACION ===" << endl;
+        c.ingresar(contadorCotizacion++);
+        listaCotizaciones.insertar(c);
+        cout << "  [OK] Cotizacion generada." << endl;
+    }
+
+    void cerrarContrato() {
+        Contrato c;
+        cout << "\n  === NUEVO CONTRATO ===" << endl;
+        c.ingresar(contadorContrato++);
+        listaContratos.insertar(c);
+        cout << "  [OK] Contrato cerrado." << endl;
+    }
+
     void menuPrincipal() {
         int opcion;
-        string respuesta1, respuesta2, respuesta3;
-        double respuestaD;
-        int respuestaI;
+        while (1) {
+            cout << "\n  ========================================" << endl;
+            cout << "     MODULO 2 - EMBUDO DE VENTAS         " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  --- Clientes Potenciales ---" << endl;
+            cout << "  1. Registrar Cliente Potencial" << endl;
+            cout << "  2. Atender siguiente Cliente (Cola)" << endl;
+            cout << "  --- Oportunidades ---" << endl;
+            cout << "  3. Crear Oportunidad Comercial" << endl;
+            cout << "  4. Ver Embudo de Ventas" << endl;
+            cout << "  5. Buscar Oportunidad" << endl;
+            cout << "  6. Ordenar Oportunidades por Valor" << endl;
+            cout << "  --- Productos ---" << endl;
+            cout << "  7. Agregar Producto" << endl;
+            cout << "  8. Ver Productos Premium" << endl;
+            cout << "  --- Cotizaciones y Contratos ---" << endl;
+            cout << "  9. Generar Cotizacion" << endl;
+            cout << "  10. Cerrar Contrato" << endl;
+            cout << "  0. Volver al menu principal" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Opcion: "; cin >> opcion;
 
-        do {
-    
-            cout << "==========================================\n";
-            cout << "       SALESFORCE - MODULO 2 (VENTAS)     \n";
-            cout << "==========================================\n";
-            cout << " 1. Registrar nuevo Cliente\n";
-            cout << " 2. Atender siguiente Cliente (Cola)\n";
-            cout << " 3. Crear Oportunidad Comercial\n";
-            cout << " 4. Ver Embudo de Ventas\n";
-            cout << " 5. Buscar Oportunidad\n";
-            cout << " 6. Ordenar Oportunidades por Valor\n";
-            cout << " 7. Agregar Producto\n";
-            cout << " 8. Ver Productos Premium\n";
-            cout << " 9. Generar Cotizacion\n";
-            cout << " 10. Cerrar Contrato\n";
-            cout << " 0. Salir\n";
-            cout << "==========================================\n";
-            cout << "Seleccione una opcion: ";
-
-            cin >> opcion;
-            cin.ignore(); 
-
-            cout << "\n";
             switch (opcion) {
-            case 1:
-                cout << "Nombre del cliente: "; getline(cin, respuesta1);
-                cout << "Correo: "; getline(cin, respuesta2);
-                cout << "Interes: "; getline(cin, respuesta3);
-                registrarClientes(respuesta1, respuesta2, respuesta3);
-                break;
-            case 2:
-                atenderSiguienteCliente();
-                break;
-            case 3:
-                cout << "Titulo del trato: "; getline(cin, respuesta1);
-                cout << "Valor esperado (S/.): "; cin >> respuestaD; cin.ignore();
-                cout << "Fase: "; getline(cin, respuesta2);
-                crearOportunidad(respuesta1, respuestaD, respuesta2);
-                break;
-            case 4:
-                mostrarEmbudo();
-                break;
-            case 5:
-                cout << "Ingrese el titulo exacto a buscar: "; getline(cin, respuesta1);
-                buscarOportunidadPorTitulo(respuesta1);
-                break;
-            case 6:
-                ordenarOportunidadesPorValor();
-                break;
-            case 7:
-                cout << "ID del Producto: "; cin >> respuestaI; cin.ignore();
-                cout << "Nombre del Producto: "; getline(cin, respuesta1);
-                cout << "Precio (S/.): "; cin >> respuestaD; cin.ignore();
-                agregarProducto(respuestaI, respuesta1, respuestaD);
-                break;
-            case 8:
-                cout << "Ingrese el precio minimo para filtrar: S/."; cin >> respuestaD; cin.ignore();
-                mostrarProductosPremium(respuestaD);
-                break;
-            case 9:
-                cout << "Numero de Cotizacion: "; cin >> respuestaI; cin.ignore();
-                cout << "Total (S/.): "; cin >> respuestaD; cin.ignore();
-                cout << "Fecha de Vencimiento: "; getline(cin, respuesta1);
-                generarCotizacion(respuestaI, respuestaD, respuesta1);
-                break;
-            case 10:
-                cout << "ID del Contrato: "; cin >> respuestaI; cin.ignore();
-                cout << "Fecha de Firma: "; getline(cin, respuesta1);
-                cout << "Terminos: "; getline(cin, respuesta2);
-                cerrarContrato(respuestaI, respuesta1, respuesta2);
-                break;
-            case 0:
-                cout << "Saliendo...\n";
-                break;
-            default:
-                cout << "Opcion invalida.\n";
-                break;
+            case 1:  registrarCliente();            break;
+            case 2:  atenderSiguienteCliente();     break;
+            case 3:  crearOportunidad();            break;
+            case 4:  mostrarEmbudo();               break;
+            case 5:  buscarOportunidad();           break;
+            case 6:  ordenarOportunidadesPorValor(); break;
+            case 7:  agregarProducto();             break;
+            case 8:  mostrarProductosPremium();     break;
+            case 9:  generarCotizacion();           break;
+            case 10: cerrarContrato();              break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
             }
-           
-
-        } while (opcion != 0);
+        }
     }
 };
-
