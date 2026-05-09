@@ -1,40 +1,52 @@
 #pragma once
-#include <iostream>
-#include <string>
-
+#include "iostream"
+#include "string"
 using namespace std;
 
 class Caso {
 private:
-    string id;
+    int id;
     string asunto;
     string estado;
     string prioridad;
 
 public:
-    Caso(string i = "", string a = "", string e = "Abierto", string p = "Media")
-        : id(i), asunto(a), estado(e), prioridad(p) {}
-    ~Caso() {}
+    Caso() {
+        id = 0;
+        asunto = "";
+        estado = "Abierto";
+        prioridad = "Media";
+    }
 
-    string getId() const { return id; }
-    void setId(string i) { id = i; }
-    
-    string getAsunto() const { return asunto; }
+    Caso(int id, string asunto, string estado, string prioridad) {
+        this->id = id;
+        this->asunto = asunto;
+        this->estado = estado;
+        this->prioridad = prioridad;
+    }
+
+    int getId() { return id; }
+    string getAsunto() { return asunto; }
+    string getEstado() { return estado; }
+    string getPrioridad() { return prioridad; }
+
+    void setId(int i) { id = i; }
     void setAsunto(string a) { asunto = a; }
-    
-    string getEstado() const { return estado; }
     void setEstado(string e) { estado = e; }
-    
-    string getPrioridad() const { return prioridad; }
     void setPrioridad(string p) { prioridad = p; }
 
-    void mostrar() const {
-        cout << "Caso [" << id << "] " << asunto << " | Prioridad: " << prioridad << " | Estado: " << estado << endl;
+    void mostrar() {
+        cout << "  ID        : " << id << endl;
+        cout << "  Asunto    : " << asunto << endl;
+        cout << "  Estado    : " << estado << endl;
+        cout << "  Prioridad : " << prioridad << endl;
+        cout << "  ----------------------------------------" << endl;
     }
+
     void ingresar(int nuevoId) {
-        id = to_string(nuevoId);
-        cout << "  Asunto    : "; cin >> ws; getline(cin, asunto);
-        cout << "  Prioridad : "; cin >> prioridad;
-        estado = "Abierto"; // Por defecto al ingresar
+        id = nuevoId;
+        cout << "  Asunto                        : "; cin >> asunto;
+        cout << "  Estado (Abierto/Cerrado)      : "; cin >> estado;
+        cout << "  Prioridad (Alta/Media/Baja)   : "; cin >> prioridad;
     }
 };

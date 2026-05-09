@@ -1,283 +1,313 @@
-// GestorSoporte.h
-#pragma once
-#include <iostream>
-#include <string>
+﻿#pragma once
+#include "iostream"
+#include "string"
 #include "Pila.h"
+#include "Cola.h"
+#include "ListaSimple.h"
 #include "Caso.h"
 #include "Solucion.h"
 #include "Tarea.h"
 #include "Evento.h"
 #include "Historial.h"
-#include "GestorArchivos.h" 
-
+#include "GestorArchivos.h"
 using namespace std;
 
 class GestorSoporte {
 private:
-    Pila<Caso>* casos;
-    Pila<Solucion>* soluciones;
-    Pila<Tarea>* tareas;
-    Pila<Evento>* eventos;
-    Pila<Historial>* historiales;
-
-    int contCaso;
-    int contSolucion;
-    int contTarea;
-    int contEvento;
-    int contHistorial;
-
-    void registrarHistorialAuto(string accion) {
-        Historial h;
-        h.setId(to_string(contHistorial++));
-        h.setAccion(accion);
-        h.setFecha("Reciente");
-        historiales->push(h);
-    }
-
-    // Aprovechamos la recursividad nativa del call stack del sistema para buscar un caso 
-    // extrayendo (pop) en la ida y restaurando (push) en la vuelta para no alterar la estructura de la pila.
-    bool buscarCasoRecursivoEnPila(Pila<Caso>& p, string idObjetivo) {
-        if (p.estaVacia()) return false;
-        Caso actual = p.peek();
-        if (actual.getId() == idObjetivo) {
-            cout << "\n  [Encontrado recursivamente]" << endl;
-            actual.mostrar();
-            return true;
-        }
-        p.pop();
-        bool encontrado = buscarCasoRecursivoEnPila(p, idObjetivo);
-        p.push(actual);
-        return encontrado;
-    }
+    Cola<Caso>           colaCasos;
+    Pila<Solucion>       pilaSoluciones;
+    Cola<Tarea>          colaTareas;
+    ListaSimple<Evento>  listaEventos;
+    Pila<Historial>      pilaHistorial;
+    int contadorCaso;
+    int contadorSolucion;
+    int contadorTarea;
+    int contadorEvento;
+    int contadorHistorial;
 
 public:
     GestorSoporte() {
-        casos = new Pila<Caso>();
-        soluciones = new Pila<Solucion>();
-        tareas = new Pila<Tarea>();
-        eventos = new Pila<Evento>();
-        historiales = new Pila<Historial>();
-
-        contCaso = 1;
-        contSolucion = 1;
-        contTarea = 1;
-        contEvento = 1;
-        contHistorial = 1;
+        contadorCaso = 1;
+        contadorSolucion = 1;
+        contadorTarea = 1;
+        contadorEvento = 1;
+        contadorHistorial = 1;
     }
 
-    ~GestorSoporte() {
-        delete casos;
-        delete soluciones;
-        delete tareas;
-        delete eventos;
-        delete historiales;
-    }
-
-    void agregarCaso() {
+    // ─────────────────────────────────────────
+    //  CASOS
+    // ─────────────────────────────────────────
+    void registrarCaso() {
         Caso c;
         cout << "\n  === NUEVO CASO ===" << endl;
-        c.ingresar(contCaso++);
-        casos->push(c);
-        registrarHistorialAuto("Caso registrado: " + c.getId());
-        cout << "  [OK] Caso registrado." << endl;
+        c.ingresar(contadorCaso++);
+        colaCasos.enqueue(c);
+        cout << "  [OK] Caso registrado en la cola." << endl;
     }
 
-    void listarCasos() {
-        cout << "\n  === LISTA DE CASOS ===" << endl;
-        if (casos->estaVacia()) {
-            cout << "  No hay casos registrados." << endl;
+    void atenderCaso() {
+        if (colaCasos.estaVacia()) {
+            cout << "  [!] No hay casos pendientes." << endl;
             return;
         }
-        casos->mostrar();
+        cout << "\n  === CASO EN ATENCION ===" << endl;
+        colaCasos.getFrente().mostrar();
+        colaCasos.dequeue();
+        cout << "  [OK] Caso atendido." << endl;
     }
 
-    void ordenarCasosPorID() {
-        casos->ordenarBurbujaOptimizada([](const Caso& a, const Caso& b) {
-            return a.getId() < b.getId();
-            });
-        registrarHistorialAuto("Casos ordenados por ID");
-        cout << "  [OK] Casos ordenados en la pila." << endl;
-    }
-    void buscarCasoPorIDBinario() {
-        cout << "\n  ID del caso a buscar (Binaria): ";
-        int idTarget;
-        cin >> idTarget;
-
-        ordenarCasosPorID();
-
-        // 1. Creamos un objeto Caso falso solo con el ID que queremos buscar
-        Caso casoBuscado;
-        casoBuscado.setId(to_string(idTarget));
-
-        // 2. Enviamos los 3 par�metros que exige Pila.h
-        int indice = casos->busquedaBinaria(
-            casoBuscado,
-            [](const Caso& a, const Caso& b) { return stoi(a.getId()) == stoi(b.getId()); },
-            [](const Caso& a, const Caso& b) { return stoi(a.getId()) < stoi(b.getId()); }
-        );
-
-        if (indice != -1) {
-            cout << "\n  [Encontrado]" << endl;
-            // Lo buscamos linealmente para mostrarlo ya que sabemos que existe
-            Pila<Caso> temp;
-            while (!casos->estaVacia()) {
-                Caso c = casos->peek();
-                casos->pop();
-                temp.push(c);
-                if (c.getId() == to_string(idTarget)) {
-                    c.mostrar();
-                }
-            }
-            // Restauramos la pila
-            while (!temp.estaVacia()) {
-                casos->push(temp.peek());
-                temp.pop();
-            }
+    void mostrarCasos() {
+        cout << "\n  === COLA DE CASOS ===" << endl;
+        if (colaCasos.estaVacia()) {
+            cout << "  No hay casos pendientes." << endl;
+            return;
         }
-        else {
-            cout << "  [!] Caso no encontrado." << endl;
-        }
+        colaCasos.mostrar();
     }
 
-    void buscarCasoPorIDRecursivo() {
-        cout << "\n  ID del caso a buscar (Recursiva Pila): ";
-        string idTarget;
-        cin >> idTarget;
-        if (!buscarCasoRecursivoEnPila(*casos, idTarget)) {
-            cout << "  [!] Caso no encontrado." << endl;
-        }
-    }
-
-    void agregarSolucion() {
+    // ─────────────────────────────────────────
+    //  SOLUCIONES
+    // ─────────────────────────────────────────
+    void registrarSolucion() {
         Solucion s;
         cout << "\n  === NUEVA SOLUCION ===" << endl;
-        s.ingresar(contSolucion++);
-        soluciones->push(s);
-        registrarHistorialAuto("Solucion registrada: " + s.getId());
+        s.ingresar(contadorSolucion++);
+        pilaSoluciones.push(s);
         cout << "  [OK] Solucion registrada." << endl;
     }
 
-    void listarSoluciones() {
-        cout << "\n  === LISTA DE SOLUCIONES ===" << endl;
-        soluciones->mostrar();
+    void verUltimaSolucion() {
+        if (pilaSoluciones.estaVacia()) {
+            cout << "  [!] No hay soluciones registradas." << endl;
+            return;
+        }
+        cout << "\n  === ULTIMA SOLUCION ===" << endl;
+        pilaSoluciones.peek().mostrar();
     }
 
+    void mostrarSoluciones() {
+        cout << "\n  === HISTORIAL DE SOLUCIONES ===" << endl;
+        if (pilaSoluciones.estaVacia()) {
+            cout << "  No hay soluciones registradas." << endl;
+            return;
+        }
+        pilaSoluciones.mostrar();
+    }
+
+    // ─────────────────────────────────────────
+    //  TAREAS
+    // ─────────────────────────────────────────
     void agregarTarea() {
         Tarea t;
         cout << "\n  === NUEVA TAREA ===" << endl;
-        t.ingresar(contTarea++);
-        tareas->push(t);
-        registrarHistorialAuto("Tarea registrada: " + t.getId());
-        cout << "  [OK] Tarea registrada." << endl;
+        t.ingresar(contadorTarea++);
+        colaTareas.enqueue(t);
+        cout << "  [OK] Tarea agregada." << endl;
     }
 
-    void listarTareas() {
-        cout << "\n  === LISTA DE TAREAS ===" << endl;
-        tareas->mostrar();
+    void atenderTarea() {
+        if (colaTareas.estaVacia()) {
+            cout << "  [!] No hay tareas pendientes." << endl;
+            return;
+        }
+        cout << "\n  === TAREA EN ATENCION ===" << endl;
+        colaTareas.getFrente().mostrar();
+        colaTareas.dequeue();
+        cout << "  [OK] Tarea completada." << endl;
     }
 
-    void guardarCasosEnArchivo() {
-        GestorArchivos gestor;
+    void mostrarTareas() {
+        cout << "\n  === COLA DE TAREAS ===" << endl;
+        if (colaTareas.estaVacia()) {
+            cout << "  No hay tareas pendientes." << endl;
+            return;
+        }
+        colaTareas.mostrar();
+    }
+
+    // ─────────────────────────────────────────
+    //  EVENTOS
+    // ─────────────────────────────────────────
+    void agregarEvento() {
+        Evento e;
+        cout << "\n  === NUEVO EVENTO ===" << endl;
+        e.ingresar(contadorEvento++);
+        listaEventos.insertar(e);
+        cout << "  [OK] Evento registrado." << endl;
+    }
+
+    void mostrarEventos() {
+        cout << "\n  === LISTA DE EVENTOS ===" << endl;
+        if (listaEventos.estaVacia()) {
+            cout << "  No hay eventos registrados." << endl;
+            return;
+        }
+        listaEventos.mostrar();
+    }
+
+    void buscarEvento() {
+        string titulo;
+        cout << "\n  Titulo a buscar: "; cin >> titulo;
+        auto criterio = [titulo](Evento e) {
+            return e.getTitulo() == titulo;
+            };
+        NodoS<Evento>* resultado = listaEventos.buscar(criterio);
+        if (resultado != nullptr) {
+            cout << "\n  [Encontrado]" << endl;
+            resultado->dato.mostrar();
+        }
+        else {
+            cout << "  [!] Evento no encontrado." << endl;
+        }
+    }
+
+    // ─────────────────────────────────────────
+    //  HISTORIAL
+    // ─────────────────────────────────────────
+    void registrarHistorial() {
+        Historial h;
+        cout << "\n  === NUEVO REGISTRO EN HISTORIAL ===" << endl;
+        h.ingresar(contadorHistorial++);
+        pilaHistorial.push(h);
+        cout << "  [OK] Historial registrado." << endl;
+    }
+
+    void verUltimoHistorial() {
+        if (pilaHistorial.estaVacia()) {
+            cout << "  [!] Historial vacio." << endl;
+            return;
+        }
+        cout << "\n  === ULTIMO REGISTRO ===" << endl;
+        pilaHistorial.peek().mostrar();
+    }
+
+    void mostrarHistorial() {
+        cout << "\n  === HISTORIAL COMPLETO ===" << endl;
+        if (pilaHistorial.estaVacia()) {
+            cout << "  No hay registros." << endl;
+            return;
+        }
+        pilaHistorial.mostrar();
+    }
+
+    // ─────────────────────────────────────────
+    //  RECURSIVIDAD
+    // ─────────────────────────────────────────
+    bool buscarCasoRec(NodoS<Caso>* nodo, int idBuscado) {
+        if (nodo == nullptr) return false;
+        if (nodo->dato.getId() == idBuscado) return true;
+        return buscarCasoRec(nodo->siguiente, idBuscado);
+    }
+
+    void buscarCasoPorId() {
+        int id;
+        cout << "\n  ID del Caso a buscar: "; cin >> id;
+        bool encontrado = buscarCasoRec(colaCasos.getFrenteNodo(), id);
+        if (encontrado)
+            cout << "  [OK] Caso #" << id << " encontrado." << endl;
+        else
+            cout << "  [!] Caso #" << id << " no encontrado." << endl;
+    }
+
+    // ─────────────────────────────────────────
+    //  ARCHIVOS - CASOS
+    // ─────────────────────────────────────────
+    void guardarCasos() {
         ListaSimple<string>* lineas = new ListaSimple<string>();
-        Pila<Caso> pilaTemporal;
-
-        while (!casos->estaVacia()) {
-            Caso c = casos->peek();
-            string lineaDato = c.getId() + "," + c.getAsunto() + "," + c.getEstado() + "," + c.getPrioridad();
-            lineas->insertar(lineaDato);
-
-            pilaTemporal.push(c);
-            casos->pop();
-        }
-
-        while (!pilaTemporal.estaVacia()) {
-            casos->push(pilaTemporal.peek());
-            pilaTemporal.pop();
-        }
-
-        gestor.guardarLineas("Casos.txt", lineas);
-        registrarHistorialAuto("Casos exportados a Casos.txt");
-        cout << "  [OK] Casos guardados exitosamente en 'Casos.txt'." << endl;
-        delete lineas;
-    }
-
-    void cargarCasosDesdeArchivo() {
-        GestorArchivos gestor;
-        ListaSimple<string>* lineas = gestor.cargarLineas("Casos.txt");
-        if (lineas == nullptr || lineas->estaVacia()) return;
-
-        // Limpiamos pila temporalmente usando una Pila para invertir el orden 
-        // y conservar el �ltimo guardado en la parte inferior.
-        Pila<Caso> pilaTemporal;
-        NodoS<string>* actual = lineas->getCabeza();
-
+        NodoS<Caso>* actual = colaCasos.getFrenteNodo();
         while (actual != nullptr) {
-            string l = actual->dato;
-            int p1 = l.find(',');
-            int p2 = l.find(',', p1 + 1);
-            int p3 = l.find(',', p2 + 1);
-
-            if (p1 != string::npos && p2 != string::npos && p3 != string::npos) {
-                Caso c(l.substr(0, p1), l.substr(p1 + 1, p2 - p1 - 1), l.substr(p2 + 1, p3 - p2 - 1), l.substr(p3 + 1));
-                pilaTemporal.push(c);
-                int parsedId = stoi(c.getId());
-                if (parsedId >= contCaso) contCaso = parsedId + 1;
-            }
+            Caso c = actual->dato;
+            string linea = to_string(c.getId()) + "," +
+                c.getAsunto() + "," +
+                c.getEstado() + "," +
+                c.getPrioridad();
+            lineas->insertar(linea);
             actual = actual->siguiente;
         }
-
-        while (!pilaTemporal.estaVacia()) {
-            casos->push(pilaTemporal.peek());
-            pilaTemporal.pop();
-        }
-
-        registrarHistorialAuto("Casos importados desde Casos.txt");
-        cout << "  [OK] Casos recuperados desde 'Casos.txt'." << endl;
-        delete lineas;
+        GestorArchivos gestor;
+        gestor.guardarLineas("casos.txt", lineas);
+        cout << "  [OK] Casos guardados en casos.txt" << endl;
     }
 
-    void menuSoporte() {
+    void cargarCasos() {
+        GestorArchivos gestor;
+        ListaSimple<string>* lineas = gestor.cargarLineas("casos.txt");
+        NodoS<string>* actual = lineas->getCabeza();
+        while (actual != nullptr) {
+            string linea = actual->dato;
+            int p1 = linea.find(',');
+            int p2 = linea.find(',', p1 + 1);
+            int p3 = linea.find(',', p2 + 1);
+
+            Caso c;
+            c.setId(stoi(linea.substr(0, p1)));
+            c.setAsunto(linea.substr(p1 + 1, p2 - p1 - 1));
+            c.setEstado(linea.substr(p2 + 1, p3 - p2 - 1));
+            c.setPrioridad(linea.substr(p3 + 1));
+            colaCasos.enqueue(c);
+            contadorCaso++;
+            actual = actual->siguiente;
+        }
+        cout << "  [OK] Casos cargados desde casos.txt" << endl;
+    }
+
+    // ─────────────────────────────────────────
+    //  MENU
+    // ─────────────────────────────────────────
+    void menu() {
         int opcion;
-        while (true) {
+        while (1) {
             cout << "\n  ========================================" << endl;
-            cout << "        MODULO 3 - GESTION DE SOPORTE    " << endl;
+            cout << "     MODULO 3 - OPERACIONES Y SOPORTE   " << endl;
             cout << "  ========================================" << endl;
             cout << "  --- Casos ---" << endl;
-            cout << "  1. Agregar Caso" << endl;
-            cout << "  2. Listar Casos (LIFO)" << endl;
-            cout << "  3. Ordenar Casos por ID (Burbuja)" << endl;
-            cout << "  4. Buscar Caso por ID (Binaria)" << endl;
-            cout << "  5. Buscar Caso por ID (Recursiva)" << endl;
-            cout << "  --- Soluciones & Tareas ---" << endl;
-            cout << "  6. Agregar Solucion" << endl;
-            cout << "  7. Listar Soluciones" << endl;
+            cout << "  1. Registrar Caso" << endl;
+            cout << "  2. Atender siguiente Caso (Cola)" << endl;
+            cout << "  3. Ver Casos pendientes" << endl;
+            cout << "  4. Buscar Caso por ID (Recursivo)" << endl;
+            cout << "  --- Soluciones ---" << endl;
+            cout << "  5. Registrar Solucion" << endl;
+            cout << "  6. Ver ultima Solucion" << endl;
+            cout << "  7. Ver todas las Soluciones" << endl;
+            cout << "  --- Tareas ---" << endl;
             cout << "  8. Agregar Tarea" << endl;
-            cout << "  9. Listar Tareas" << endl;
-            cout << "  --- Sistema & Archivos ---" << endl;
-            cout << "  10. Ver Historial de Acciones" << endl;
-            cout << "  11. Guardar Casos en Archivo (.txt)" << endl;
-            cout << "  12. Cargar Casos desde Archivo (.txt)" << endl;
+            cout << "  9. Atender siguiente Tarea (Cola)" << endl;
+            cout << "  10. Ver Tareas pendientes" << endl;
+            cout << "  --- Eventos ---" << endl;
+            cout << "  11. Agregar Evento" << endl;
+            cout << "  12. Ver Eventos" << endl;
+            cout << "  13. Buscar Evento" << endl;
+            cout << "  --- Historial ---" << endl;
+            cout << "  14. Registrar en Historial" << endl;
+            cout << "  15. Ver ultimo registro" << endl;
+            cout << "  16. Ver Historial completo" << endl;
+            cout << "  --- Archivos ---" << endl;
+            cout << "  17. Guardar Casos" << endl;
+            cout << "  18. Cargar Casos" << endl;
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
             cout << "  Opcion: "; cin >> opcion;
 
             switch (opcion) {
-            case 1: agregarCaso(); break;
-            case 2: listarCasos(); break;
-            case 3: ordenarCasosPorID(); break;
-            case 4: buscarCasoPorIDBinario(); break;
-            case 5: buscarCasoPorIDRecursivo(); break;
-            case 6: agregarSolucion(); break;
-            case 7: listarSoluciones(); break;
-            case 8: agregarTarea(); break;
-            case 9: listarTareas(); break;
-            case 10:
-                cout << "\n  === HISTORIAL DEL SISTEMA ===" << endl;
-                historiales->mostrar();
-                break;
-            case 11: guardarCasosEnArchivo(); break;
-            case 12: cargarCasosDesdeArchivo(); break;
-            case 0: return;
+            case 1:  registrarCaso();      break;
+            case 2:  atenderCaso();        break;
+            case 3:  mostrarCasos();       break;
+            case 4:  buscarCasoPorId();    break;
+            case 5:  registrarSolucion();  break;
+            case 6:  verUltimaSolucion();  break;
+            case 7:  mostrarSoluciones();  break;
+            case 8:  agregarTarea();       break;
+            case 9:  atenderTarea();       break;
+            case 10: mostrarTareas();      break;
+            case 11: agregarEvento();      break;
+            case 12: mostrarEventos();     break;
+            case 13: buscarEvento();       break;
+            case 14: registrarHistorial(); break;
+            case 15: verUltimoHistorial(); break;
+            case 16: mostrarHistorial();   break;
+            case 17: guardarCasos();       break;
+            case 18: cargarCasos();        break;
+            case 0:  return;
             default: cout << "  [!] Opcion invalida." << endl;
             }
         }

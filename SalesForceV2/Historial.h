@@ -1,35 +1,52 @@
 #pragma once
-#include <iostream>
-#include <string>
-
+#include "iostream"
+#include "string"
 using namespace std;
 
 class Historial {
 private:
-    string id;
+    int id;
     string moduloAsociado;
     string accion;
     string fecha;
 
 public:
-    Historial(string i = "", string m = "", string a = "", string f = "")
-        : id(i), moduloAsociado(m), accion(a), fecha(f) {
+    Historial() {
+        id = 0;
+        moduloAsociado = "";
+        accion = "";
+        fecha = "";
     }
-    ~Historial() {}
 
-    string getId() const { return id; }
-    void setId(string i) { id = i; }
+    Historial(int id, string moduloAsociado, string accion, string fecha) {
+        this->id = id;
+        this->moduloAsociado = moduloAsociado;
+        this->accion = accion;
+        this->fecha = fecha;
+    }
 
-    string getModuloAsociado() const { return moduloAsociado; }
+    int getId() { return id; }
+    string getModuloAsociado() { return moduloAsociado; }
+    string getAccion() { return accion; }
+    string getFecha() { return fecha; }
+
+    void setId(int i) { id = i; }
     void setModuloAsociado(string m) { moduloAsociado = m; }
-
-    string getAccion() const { return accion; }
     void setAccion(string a) { accion = a; }
-
-    string getFecha() const { return fecha; }
     void setFecha(string f) { fecha = f; }
 
-    void mostrar() const {
-        cout << "Historial [" << id << "] Modulo: " << moduloAsociado << " | Accion: " << accion << " | Fecha: " << fecha << endl;
+    void mostrar() {
+        cout << "  ID      : " << id << endl;
+        cout << "  Modulo  : " << moduloAsociado << endl;
+        cout << "  Accion  : " << accion << endl;
+        cout << "  Fecha   : " << fecha << endl;
+        cout << "  ----------------------------------------" << endl;
+    }
+
+    void ingresar(int nuevoId) {
+        id = nuevoId;
+        cout << "  Modulo Asociado           : "; cin >> moduloAsociado;
+        cout << "  Accion realizada          : "; cin >> accion;
+        cout << "  Fecha (DD/MM/AAAA)        : "; cin >> fecha;
     }
 };

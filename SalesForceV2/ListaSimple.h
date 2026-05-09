@@ -85,6 +85,24 @@ public:
         }
     }
 
+    // Burbuja optimizada con template
+    template <typename Comparador>
+    void ordenarBurbujaOptimizada(Comparador comp) {
+        if (cabeza == nullptr) return;
+        bool ordenado;
+        do {
+            ordenado = true;
+            NodoS<T>* actual = cabeza;
+            while (actual->siguiente != nullptr) {
+                if (comp(actual->dato, actual->siguiente->dato)) {
+                    swap(actual->dato, actual->siguiente->dato);
+                    ordenado = false;
+                }
+                actual = actual->siguiente;
+            }
+        } while (!ordenado);
+    }
+
     bool estaVacia() { return cabeza == nullptr; }
     int getTamanio() { return tamanio; }
     NodoS<T>* getCabeza() { return cabeza; }

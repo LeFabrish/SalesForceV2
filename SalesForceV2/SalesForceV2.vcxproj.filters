@@ -218,4 +218,18 @@
       <Filter>Archivos de recursos</Filter>
     </Image>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="casos.txt">
+      <Filter>Recurso</Filter>
+    </Text>
+    <Text Include="cuentas.txt">
+      <Filter>Recurso</Filter>
+    </Text>
+    <Text Include="productos.txt">
+      <Filter>Recurso</Filter>
+    </Text>
+    <Text Include="usuarios.txt">
+      <Filter>Recurso</Filter>
+    </Text>
+  </ItemGroup>
 </Project>

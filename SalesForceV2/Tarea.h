@@ -1,41 +1,52 @@
 #pragma once
-#include <iostream>
-#include <string>
-
+#include "iostream"
+#include "string"
 using namespace std;
 
 class Tarea {
 private:
-    string id;
+    int id;
     string descripcion;
     string estado;
     string fechaLimite;
 
 public:
-    Tarea(string i = "", string d = "", string e = "Pendiente", string f = "")
-        : id(i), descripcion(d), estado(e), fechaLimite(f) {
+    Tarea() {
+        id = 0;
+        descripcion = "";
+        estado = "Pendiente";
+        fechaLimite = "";
     }
-    ~Tarea() {}
 
-    string getId() const { return id; }
-    void setId(string i) { id = i; }
+    Tarea(int id, string descripcion, string estado, string fechaLimite) {
+        this->id = id;
+        this->descripcion = descripcion;
+        this->estado = estado;
+        this->fechaLimite = fechaLimite;
+    }
 
-    string getDescripcion() const { return descripcion; }
+    int getId() { return id; }
+    string getDescripcion() { return descripcion; }
+    string getEstado() { return estado; }
+    string getFechaLimite() { return fechaLimite; }
+
+    void setId(int i) { id = i; }
     void setDescripcion(string d) { descripcion = d; }
-
-    string getEstado() const { return estado; }
     void setEstado(string e) { estado = e; }
-
-    string getFechaLimite() const { return fechaLimite; }
     void setFechaLimite(string f) { fechaLimite = f; }
 
-    void mostrar() const {
-        cout << "Tarea [" << id << "] " << descripcion << " | Limite: " << fechaLimite << " | Estado: " << estado << endl;
+    void mostrar() {
+        cout << "  ID          : " << id << endl;
+        cout << "  Descripcion : " << descripcion << endl;
+        cout << "  Estado      : " << estado << endl;
+        cout << "  Fecha Limite: " << fechaLimite << endl;
+        cout << "  ----------------------------------------" << endl;
     }
+
     void ingresar(int nuevoId) {
-        id = to_string(nuevoId);
-        cout << "  Descripcion  : "; cin >> ws; getline(cin, descripcion);
-        cout << "  Fecha Limite : "; cin >> fechaLimite;
-        estado = "Pendiente"; // Por defecto
+        id = nuevoId;
+        cout << "  Descripcion                      : "; cin >> descripcion;
+        cout << "  Estado (Pendiente/Completada)    : "; cin >> estado;
+        cout << "  Fecha Limite (DD/MM/AAAA)        : "; cin >> fechaLimite;
     }
 };

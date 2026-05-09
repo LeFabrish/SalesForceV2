@@ -2,6 +2,7 @@
 #include "iostream"
 #include "string"
 #include "ListaDoble.h"
+#include "ListaSimple.h"
 #include "GestorArchivos.h"
 #include "Cuenta.h"
 #include "Contacto.h"
@@ -34,9 +35,9 @@ public:
         contadorInteraccion = 1;
     }
 
-    // ------------------------------------------
+    // ─────────────────────────────────────────
     //  CUENTAS
-    // ------------------------------------------
+    // ─────────────────────────────────────────
     void agregarCuenta() {
         Cuenta c;
         cout << "\n  === NUEVA CUENTA ===" << endl;
@@ -57,12 +58,9 @@ public:
     void buscarCuenta() {
         string nombre;
         cout << "\n  Nombre a buscar: "; cin >> nombre;
-
-        // Lambda de búsqueda
         auto criterio = [nombre](Cuenta c) {
             return c.getNombre() == nombre;
             };
-
         NodoD<Cuenta>* resultado = cuentas->buscar(criterio);
         if (resultado != nullptr) {
             cout << "\n  [Encontrado]" << endl;
@@ -74,7 +72,6 @@ public:
     }
 
     void ordenarCuentasPorNombre() {
-        // Lambda de ordenamiento
         auto comparar = [](Cuenta a, Cuenta b) {
             return a.getNombre() > b.getNombre();
             };
@@ -89,121 +86,6 @@ public:
         cout << "  [OK] Cuenta eliminada." << endl;
     }
 
-    // ------------------------------------------
-    //  CONTACTOS
-    // ------------------------------------------
-    void agregarContacto() {
-        Contacto c;
-        cout << "\n  === NUEVO CONTACTO ===" << endl;
-        c.ingresar(contadorContacto++);
-        contactos->insertar(c);
-        cout << "  [OK] Contacto registrado." << endl;
-    }
-
-    void listarContactos() {
-        cout << "\n  === LISTA DE CONTACTOS ===" << endl;
-        if (contactos->estaVacia()) {
-            cout << "  No hay contactos registrados." << endl;
-            return;
-        }
-        contactos->mostrar();
-    }
-
-    void buscarContacto() {
-        string nombre;
-        cout << "\n  Nombre a buscar: "; cin >> nombre;
-
-        // Lambda de búsqueda
-        auto criterio = [nombre](Contacto c) {
-            return c.getNombre() == nombre;
-            };
-
-        NodoD<Contacto>* resultado = contactos->buscar(criterio);
-        if (resultado != nullptr) {
-            cout << "\n  [Encontrado]" << endl;
-            resultado->dato.mostrar();
-        }
-        else {
-            cout << "  [!] Contacto no encontrado." << endl;
-        }
-    }
-
-    void ordenarContactosPorApellido() {
-        // Lambda de ordenamiento
-        auto comparar = [](Contacto a, Contacto b) {
-            return a.getApellido() > b.getApellido();
-            };
-        contactos->ordenar(comparar);
-        cout << "  [OK] Contactos ordenados por apellido." << endl;
-    }
-
-    // ------------------------------------------
-    //  USUARIOS CRM
-    // ------------------------------------------
-    void agregarUsuario() {
-        UsuarioCRM u;
-        cout << "\n  === NUEVO USUARIO CRM ===" << endl;
-        u.ingresar(contadorUsuario++);
-        usuarios->insertar(u);
-        cout << "  [OK] Usuario registrado." << endl;
-    }
-
-    void listarUsuarios() {
-        cout << "\n  === LISTA DE USUARIOS ===" << endl;
-        if (usuarios->estaVacia()) {
-            cout << "  No hay usuarios registrados." << endl;
-            return;
-        }
-        usuarios->mostrar();
-    }
-
-    void buscarUsuarioPorRol() {
-        string rol;
-        cout << "\n  Rol a buscar (Vendedor/Soporte/Admin): "; cin >> rol;
-
-        // Lambda de búsqueda por rol
-        auto criterio = [rol](UsuarioCRM u) {
-            return u.getRol() == rol;
-            };
-
-        NodoD<UsuarioCRM>* resultado = usuarios->buscar(criterio);
-        if (resultado != nullptr) {
-            cout << "\n  [Encontrado]" << endl;
-            resultado->dato.mostrar();
-        }
-        else {
-            cout << "  [!] Usuario no encontrado." << endl;
-        }
-    }
-
-    // ------------------------------------------
-    //  INTERACCIONES
-    // ------------------------------------------
-    void agregarInteraccion() {
-        Interaccion i;
-        cout << "\n  === NUEVA INTERACCION ===" << endl;
-        i.ingresar(contadorInteraccion++);
-        interacciones->insertar(i);
-        cout << "  [OK] Interaccion registrada." << endl;
-    }
-
-    void listarInteracciones() {
-        cout << "\n  === LISTA DE INTERACCIONES ===" << endl;
-        if (interacciones->estaVacia()) {
-            cout << "  No hay interacciones registradas." << endl;
-            return;
-        }
-        interacciones->mostrar();
-    }
-
-    void listarInteraccionesInverso() {
-        cout << "\n  === INTERACCIONES (mas recientes primero) ===" << endl;
-        interacciones->mostrarInverso();
-    }
-
-    // ------------------------------------------
-    //  ARCHIVOS
-    // ------------------------------------------
     void guardarCuentas() {
         ListaSimple<string>* lineas = new ListaSimple<string>();
         NodoD<Cuenta>* actual = cuentas->getCabeza();
@@ -226,12 +108,10 @@ public:
         NodoS<string>* actual = lineas->getCabeza();
         while (actual != nullptr) {
             string linea = actual->dato;
-            // Parsear: id,nombre,industria,telefono,email
             int p1 = linea.find(',');
             int p2 = linea.find(',', p1 + 1);
             int p3 = linea.find(',', p2 + 1);
             int p4 = linea.find(',', p3 + 1);
-
             Cuenta c;
             c.setId(stoi(linea.substr(0, p1)));
             c.setNombre(linea.substr(p1 + 1, p2 - p1 - 1));
@@ -244,23 +124,132 @@ public:
         }
         cout << "  [OK] Cuentas cargadas desde cuentas.txt" << endl;
     }
-    // Permite la iteración del conteo sobre la estructura enlazada doble sin depender de ciclos externos.
-    int contarCuentasPorIndustriaRecursivo(NodoD<Cuenta>* nodo, string industriaTarget) {
+
+    // ─────────────────────────────────────────
+    //  CONTACTOS
+    // ─────────────────────────────────────────
+    void agregarContacto() {
+        Contacto c;
+        cout << "\n  === NUEVO CONTACTO ===" << endl;
+        c.ingresar(contadorContacto++);
+        contactos->insertar(c);
+        cout << "  [OK] Contacto registrado." << endl;
+    }
+
+    void listarContactos() {
+        cout << "\n  === LISTA DE CONTACTOS ===" << endl;
+        if (contactos->estaVacia()) {
+            cout << "  No hay contactos registrados." << endl;
+            return;
+        }
+        contactos->mostrar();
+    }
+
+    void buscarContacto() {
+        string nombre;
+        cout << "\n  Nombre a buscar: "; cin >> nombre;
+        auto criterio = [nombre](Contacto c) {
+            return c.getNombre() == nombre;
+            };
+        NodoD<Contacto>* resultado = contactos->buscar(criterio);
+        if (resultado != nullptr) {
+            cout << "\n  [Encontrado]" << endl;
+            resultado->dato.mostrar();
+        }
+        else {
+            cout << "  [!] Contacto no encontrado." << endl;
+        }
+    }
+
+    void ordenarContactosPorApellido() {
+        auto comparar = [](Contacto a, Contacto b) {
+            return a.getApellido() > b.getApellido();
+            };
+        contactos->ordenar(comparar);
+        cout << "  [OK] Contactos ordenados por apellido." << endl;
+    }
+
+    // ─────────────────────────────────────────
+    //  USUARIOS
+    // ─────────────────────────────────────────
+    void agregarUsuario() {
+        UsuarioCRM u;
+        cout << "\n  === NUEVO USUARIO CRM ===" << endl;
+        u.ingresar(contadorUsuario++);
+        usuarios->insertar(u);
+        cout << "  [OK] Usuario registrado." << endl;
+    }
+
+    void listarUsuarios() {
+        cout << "\n  === LISTA DE USUARIOS ===" << endl;
+        if (usuarios->estaVacia()) {
+            cout << "  No hay usuarios registrados." << endl;
+            return;
+        }
+        usuarios->mostrar();
+    }
+
+    void buscarUsuarioPorRol() {
+        string rol;
+        cout << "\n  Rol a buscar (Vendedor/Soporte/Admin): "; cin >> rol;
+        auto criterio = [rol](UsuarioCRM u) {
+            return u.getRol() == rol;
+            };
+        NodoD<UsuarioCRM>* resultado = usuarios->buscar(criterio);
+        if (resultado != nullptr) {
+            cout << "\n  [Encontrado]" << endl;
+            resultado->dato.mostrar();
+        }
+        else {
+            cout << "  [!] Usuario no encontrado." << endl;
+        }
+    }
+
+    // ─────────────────────────────────────────
+    //  INTERACCIONES
+    // ─────────────────────────────────────────
+    void agregarInteraccion() {
+        Interaccion i;
+        cout << "\n  === NUEVA INTERACCION ===" << endl;
+        i.ingresar(contadorInteraccion++);
+        interacciones->insertar(i);
+        cout << "  [OK] Interaccion registrada." << endl;
+    }
+
+    void listarInteracciones() {
+        cout << "\n  === LISTA DE INTERACCIONES ===" << endl;
+        if (interacciones->estaVacia()) {
+            cout << "  No hay interacciones registradas." << endl;
+            return;
+        }
+        interacciones->mostrar();
+    }
+
+    void listarInteraccionesInverso() {
+        cout << "\n  === INTERACCIONES (mas recientes primero) ===" << endl;
+        interacciones->mostrarInverso();
+    }
+
+    // ─────────────────────────────────────────
+    //  RECURSIVIDAD
+    // ─────────────────────────────────────────
+    int contarInteraccionesRec(NodoD<Interaccion>* nodo, int idContacto) {
         if (nodo == nullptr) return 0;
-        int coincidencia = (nodo->dato.getIndustria() == industriaTarget) ? 1 : 0;
-        return coincidencia + contarCuentasPorIndustriaRecursivo(nodo->siguiente, industriaTarget);
+        int cuenta = (nodo->dato.getIdContacto() == idContacto) ? 1 : 0;
+        return cuenta + contarInteraccionesRec(nodo->siguiente, idContacto);
     }
 
-    void estadisticasCuentasRecursivas() {
-        string industria;
-        cout << "\n  Industria a contabilizar: "; cin >> industria;
-        int total = contarCuentasPorIndustriaRecursivo(cuentas->getCabeza(), industria);
-        cout << "  > Hay " << total << " cuentas asociadas a la industria " << industria << "." << endl;
+    void contarInteraccionesPorContacto() {
+        int idContacto;
+        cout << "\n  ID del Contacto: "; cin >> idContacto;
+        int total = contarInteraccionesRec(interacciones->getCabeza(), idContacto);
+        cout << "  Total de interacciones del contacto #"
+            << idContacto << ": " << total << endl;
     }
 
-    // ------------------------------------------
-    //  MENU MODULO 1
-    // ─------------------------------------------
+    // ─────────────────────────────────────────
+    //  MENU
+    // ─────────────────────────────────────────
     void menu() {
         int opcion;
         while (1) {
@@ -288,28 +277,30 @@ public:
             cout << "  15. Agregar Interaccion" << endl;
             cout << "  16. Listar Interacciones" << endl;
             cout << "  17. Listar Interacciones (recientes)" << endl;
+            cout << "  18. Contar Interacciones por Contacto" << endl;
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
             cout << "  Opcion: "; cin >> opcion;
 
             switch (opcion) {
-            case 1:  agregarCuenta();               break;
-            case 2:  listarCuentas();               break;
-            case 3:  buscarCuenta();                break;
-            case 4:  ordenarCuentasPorNombre();     break;
-            case 5:  eliminarCuenta();              break;
-            case 6:  guardarCuentas();              break;
-            case 7:  cargarCuentas();               break;
-            case 8:  agregarContacto();             break;
-            case 9:  listarContactos();             break;
-            case 10: buscarContacto();              break;
-            case 11: ordenarContactosPorApellido(); break;
-            case 12: agregarUsuario();              break;
-            case 13: listarUsuarios();              break;
-            case 14: buscarUsuarioPorRol();         break;
-            case 15: agregarInteraccion();          break;
-            case 16: listarInteracciones();         break;
-            case 17: listarInteraccionesInverso();  break;
+            case 1:  agregarCuenta();                  break;
+            case 2:  listarCuentas();                  break;
+            case 3:  buscarCuenta();                   break;
+            case 4:  ordenarCuentasPorNombre();        break;
+            case 5:  eliminarCuenta();                 break;
+            case 6:  guardarCuentas();                 break;
+            case 7:  cargarCuentas();                  break;
+            case 8:  agregarContacto();                break;
+            case 9:  listarContactos();                break;
+            case 10: buscarContacto();                 break;
+            case 11: ordenarContactosPorApellido();    break;
+            case 12: agregarUsuario();                 break;
+            case 13: listarUsuarios();                 break;
+            case 14: buscarUsuarioPorRol();            break;
+            case 15: agregarInteraccion();             break;
+            case 16: listarInteracciones();            break;
+            case 17: listarInteraccionesInverso();     break;
+            case 18: contarInteraccionesPorContacto(); break;
             case 0:  return;
             default: cout << "  [!] Opcion invalida." << endl;
             }

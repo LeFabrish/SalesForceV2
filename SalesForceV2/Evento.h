@@ -1,35 +1,52 @@
 #pragma once
-#include <iostream>
-#include <string>
-
+#include "iostream"
+#include "string"
 using namespace std;
 
 class Evento {
 private:
-    string id;
+    int id;
     string titulo;
     string fechaHora;
     string ubicacion;
 
 public:
-    Evento(string i = "", string t = "", string f = "", string u = "")
-        : id(i), titulo(t), fechaHora(f), ubicacion(u) {
+    Evento() {
+        id = 0;
+        titulo = "";
+        fechaHora = "";
+        ubicacion = "";
     }
-    ~Evento() {}
 
-    string getId() const { return id; }
-    void setId(string i) { id = i; }
+    Evento(int id, string titulo, string fechaHora, string ubicacion) {
+        this->id = id;
+        this->titulo = titulo;
+        this->fechaHora = fechaHora;
+        this->ubicacion = ubicacion;
+    }
 
-    string getTitulo() const { return titulo; }
+    int getId() { return id; }
+    string getTitulo() { return titulo; }
+    string getFechaHora() { return fechaHora; }
+    string getUbicacion() { return ubicacion; }
+
+    void setId(int i) { id = i; }
     void setTitulo(string t) { titulo = t; }
-
-    string getFechaHora() const { return fechaHora; }
     void setFechaHora(string f) { fechaHora = f; }
-
-    string getUbicacion() const { return ubicacion; }
     void setUbicacion(string u) { ubicacion = u; }
 
-    void mostrar() const {
-        cout << "Evento [" << id << "] " << titulo << " | Fecha: " << fechaHora << " | Ubicacion: " << ubicacion << endl;
+    void mostrar() {
+        cout << "  ID        : " << id << endl;
+        cout << "  Titulo    : " << titulo << endl;
+        cout << "  Fecha/Hora: " << fechaHora << endl;
+        cout << "  Ubicacion : " << ubicacion << endl;
+        cout << "  ----------------------------------------" << endl;
+    }
+
+    void ingresar(int nuevoId) {
+        id = nuevoId;
+        cout << "  Titulo                    : "; cin >> titulo;
+        cout << "  Fecha/Hora (DD/MM HH:MM)  : "; cin >> fechaHora;
+        cout << "  Ubicacion                 : "; cin >> ubicacion;
     }
 };

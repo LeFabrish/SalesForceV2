@@ -1,41 +1,52 @@
 #pragma once
-#include <iostream>
-#include <string>
-
+#include "iostream"
+#include "string"
 using namespace std;
 
 class Solucion {
 private:
-    string id;
-    string idCasoAsociado;
+    int id;
+    int idCasoAsociado;
     string descripcion;
     string fechaResolucion;
 
 public:
-    Solucion(string i = "", string idC = "", string d = "", string f = "")
-        : id(i), idCasoAsociado(idC), descripcion(d), fechaResolucion(f) {
+    Solucion() {
+        id = 0;
+        idCasoAsociado = 0;
+        descripcion = "";
+        fechaResolucion = "";
     }
-    ~Solucion() {}
 
-    string getId() const { return id; }
-    void setId(string i) { id = i; }
+    Solucion(int id, int idCasoAsociado, string descripcion, string fechaResolucion) {
+        this->id = id;
+        this->idCasoAsociado = idCasoAsociado;
+        this->descripcion = descripcion;
+        this->fechaResolucion = fechaResolucion;
+    }
 
-    string getIdCasoAsociado() const { return idCasoAsociado; }
-    void setIdCasoAsociado(string idC) { idCasoAsociado = idC; }
+    int getId() { return id; }
+    int getIdCasoAsociado() { return idCasoAsociado; }
+    string getDescripcion() { return descripcion; }
+    string getFechaResolucion() { return fechaResolucion; }
 
-    string getDescripcion() const { return descripcion; }
+    void setId(int i) { id = i; }
+    void setIdCasoAsociado(int ic) { idCasoAsociado = ic; }
     void setDescripcion(string d) { descripcion = d; }
-
-    string getFechaResolucion() const { return fechaResolucion; }
     void setFechaResolucion(string f) { fechaResolucion = f; }
 
-    void mostrar() const {
-        cout << "Solucion [" << id << "] para Caso " << idCasoAsociado << " | Detalle: " << descripcion << " | Fecha: " << fechaResolucion << endl;
+    void mostrar() {
+        cout << "  ID              : " << id << endl;
+        cout << "  ID Caso         : " << idCasoAsociado << endl;
+        cout << "  Descripcion     : " << descripcion << endl;
+        cout << "  Fecha Resolucion: " << fechaResolucion << endl;
+        cout << "  ----------------------------------------" << endl;
     }
+
     void ingresar(int nuevoId) {
-        id = to_string(nuevoId);
-        cout << "  ID Caso Asociado : "; cin >> idCasoAsociado;
-        cout << "  Descripcion      : "; cin >> ws; getline(cin, descripcion);
-        cout << "  Fecha Resolucion : "; cin >> fechaResolucion;
+        id = nuevoId;
+        cout << "  ID Caso Asociado              : "; cin >> idCasoAsociado;
+        cout << "  Descripcion                   : "; cin >> descripcion;
+        cout << "  Fecha Resolucion (DD/MM/AAAA) : "; cin >> fechaResolucion;
     }
 };

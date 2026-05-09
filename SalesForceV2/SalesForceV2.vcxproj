@@ -199,6 +199,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="casos.txt" />
+    <Text Include="cuentas.txt" />
+    <Text Include="productos.txt" />
+    <Text Include="usuarios.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
