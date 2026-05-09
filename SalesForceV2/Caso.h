@@ -31,4 +31,10 @@ public:
     void mostrar() const {
         cout << "Caso [" << id << "] " << asunto << " | Prioridad: " << prioridad << " | Estado: " << estado << endl;
     }
+    void ingresar(int nuevoId) {
+        id = to_string(nuevoId);
+        cout << "  Asunto    : "; cin >> ws; getline(cin, asunto);
+        cout << "  Prioridad : "; cin >> prioridad;
+        estado = "Abierto"; // Por defecto al ingresar
+    }
 };

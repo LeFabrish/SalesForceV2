@@ -32,4 +32,10 @@ public:
     void mostrar() const {
         cout << "Solucion [" << id << "] para Caso " << idCasoAsociado << " | Detalle: " << descripcion << " | Fecha: " << fechaResolucion << endl;
     }
+    void ingresar(int nuevoId) {
+        id = to_string(nuevoId);
+        cout << "  ID Caso Asociado : "; cin >> idCasoAsociado;
+        cout << "  Descripcion      : "; cin >> ws; getline(cin, descripcion);
+        cout << "  Fecha Resolucion : "; cin >> fechaResolucion;
+    }
 };

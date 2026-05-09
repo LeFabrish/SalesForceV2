@@ -244,6 +244,19 @@ public:
         }
         cout << "  [OK] Cuentas cargadas desde cuentas.txt" << endl;
     }
+    // Permite la iteración del conteo sobre la estructura enlazada doble sin depender de ciclos externos.
+    int contarCuentasPorIndustriaRecursivo(NodoD<Cuenta>* nodo, string industriaTarget) {
+        if (nodo == nullptr) return 0;
+        int coincidencia = (nodo->dato.getIndustria() == industriaTarget) ? 1 : 0;
+        return coincidencia + contarCuentasPorIndustriaRecursivo(nodo->siguiente, industriaTarget);
+    }
+
+    void estadisticasCuentasRecursivas() {
+        string industria;
+        cout << "\n  Industria a contabilizar: "; cin >> industria;
+        int total = contarCuentasPorIndustriaRecursivo(cuentas->getCabeza(), industria);
+        cout << "  > Hay " << total << " cuentas asociadas a la industria " << industria << "." << endl;
+    }
 
     // ------------------------------------------
     //  MENU MODULO 1

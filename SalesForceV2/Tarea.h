@@ -32,4 +32,10 @@ public:
     void mostrar() const {
         cout << "Tarea [" << id << "] " << descripcion << " | Limite: " << fechaLimite << " | Estado: " << estado << endl;
     }
+    void ingresar(int nuevoId) {
+        id = to_string(nuevoId);
+        cout << "  Descripcion  : "; cin >> ws; getline(cin, descripcion);
+        cout << "  Fecha Limite : "; cin >> fechaLimite;
+        estado = "Pendiente"; // Por defecto
+    }
 };

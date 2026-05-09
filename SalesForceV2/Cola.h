@@ -51,4 +51,35 @@ public:
             actual = actual->siguiente;
         }
     }
+
+    // Como las listas enlazadas simples no tienen acceso aleatorio eficiente, volcamos temporalmente los datos a un arreglo, los ordenamos y reconstruimos la cola.
+    template <typename Comparador>
+    void ordenarShell(Comparador comp) {
+        if (frente == nullptr || frente->siguiente == nullptr) return;
+
+        T* arr = new T[tamanio];
+        NodoS<T>* actual = frente;
+        for (int i = 0; i < tamanio; i++) {
+            arr[i] = actual->dato;
+            actual = actual->siguiente;
+        }
+
+        for (int gap = tamanio / 2; gap > 0; gap /= 2) {
+            for (int i = gap; i < tamanio; i++) {
+                T temp = arr[i];
+                int j;
+                for (j = i; j >= gap && comp(temp, arr[j - gap]); j -= gap) {
+                    arr[j] = arr[j - gap];
+                }
+                arr[j] = temp;
+            }
+        }
+
+        actual = frente;
+        for (int i = 0; i < tamanio; i++) {
+            actual->dato = arr[i];
+            actual = actual->siguiente;
+        }
+        delete[] arr;
+    }
 };
