@@ -58,10 +58,10 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Nombre    : "; cin >> nombre;
-        cout << "  Apellido  : "; cin >> apellido;
-        cout << "  Rol (Vendedor/Soporte/Admin) : "; cin >> rol;
-        cout << "  Username  : "; cin >> username;
-        cout << "  Password  : "; cin >> password;
+        cout << "  Nombre    : "; getline(cin, nombre);
+        cout << "  Apellido  : "; getline(cin, apellido);
+        cout << "  Rol (Vendedor/Soporte/Admin) : "; getline(cin, rol);
+        cout << "  Username  : "; getline(cin, username);
+        cout << "  Password  : "; getline(cin, password);
     }
 };

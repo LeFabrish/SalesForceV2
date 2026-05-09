@@ -147,7 +147,7 @@ public:
 
     void buscarEvento() {
         string titulo;
-        cout << "\n  Titulo a buscar: "; cin >> titulo;
+        cout << "\n  Titulo a buscar: "; getline(cin, titulo);
         auto criterio = [titulo](Evento e) {
             return e.getTitulo() == titulo;
             };
@@ -201,7 +201,7 @@ public:
 
     void buscarCasoPorId() {
         int id;
-        cout << "\n  ID del Caso a buscar: "; cin >> id;
+        cout << "\n  ID del Caso a buscar: ";cin>> id;
         bool encontrado = buscarCasoRec(colaCasos.getFrenteNodo(), id);
         if (encontrado)
             cout << "  [OK] Caso #" << id << " encontrado." << endl;
@@ -287,7 +287,7 @@ public:
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
             cout << "  Opcion: "; cin >> opcion;
-
+            cin.ignore();
             switch (opcion) {
             case 1:  registrarCaso();      break;
             case 2:  atenderCaso();        break;

@@ -48,7 +48,7 @@ public:
     void ingresar(int nuevoId) {
         id = nuevoId;
         cout << "  Total                      : "; cin >> total;
-        cout << "  Fecha Vencimiento (DD/MM/AA): "; cin >> fechaVencimiento;
+        cout << "  Fecha Vencimiento (DD/MM/AA): "; getline(cin,fechaVencimiento);
         cout << "  Estado (Pendiente/Aceptada/Rechazada): "; cin >> estado;
     }
 };

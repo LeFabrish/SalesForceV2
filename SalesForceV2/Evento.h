@@ -45,8 +45,8 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Titulo                    : "; cin >> titulo;
-        cout << "  Fecha/Hora (DD/MM HH:MM)  : "; cin >> fechaHora;
-        cout << "  Ubicacion                 : "; cin >> ubicacion;
+        cout << "  Titulo                    : "; getline(cin, titulo);
+        cout << "  Fecha/Hora (DD/MM HH:MM)  : "; getline(cin, fechaHora);
+        cout << "  Ubicacion                 : "; getline(cin, ubicacion);
     }
 };

@@ -47,8 +47,8 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Fecha Firma (DD/MM/AAAA) : "; cin >> fechaFirma;
-        cout << "  Terminos                 : "; cin >> terminos;
+        cout << "  Fecha Firma (DD/MM/AAAA) : "; getline(cin, fechaFirma);
+        cout << "  Terminos                 : "; getline(cin,terminos);
         cout << "  Monto Total              : "; cin >> montoTotal;
     }
 };

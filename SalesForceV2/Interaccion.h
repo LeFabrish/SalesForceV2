@@ -60,9 +60,9 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Tipo (Llamada/Email/Reunion) : "; cin >> tipo;
-        cout << "  Descripcion                 : "; cin >> descripcion;
-        cout << "  Fecha (DD/MM/AAAA)          : "; cin >> fecha;
+        cout << "  Tipo (Llamada/Email/Reunion) : "; getline(cin, tipo);
+        cout << "  Descripcion                 : "; getline(cin, descripcion);
+        cout << "  Fecha (DD/MM/AAAA)          : "; getline(cin, fecha);
         cout << "  ID Contacto                 : "; cin >> idContacto;
         cout << "  ID Usuario                  : "; cin >> idUsuario;
     }

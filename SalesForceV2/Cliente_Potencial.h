@@ -46,9 +46,10 @@ public:
     }
 
     void ingresar(int nuevoId) {
+        
         id = nuevoId;
-        cout << "  Nombre  : "; cin >> nombre;
-        cout << "  Correo  : "; cin >> correo;
-        cout << "  Interes : "; cin >> interes;
+        cout << "  Nombre  : "; getline(cin, nombre);
+        cout << "  Correo  : "; getline(cin, correo);
+        cout << "  Interes : "; getline(cin, interes);
     }
 };

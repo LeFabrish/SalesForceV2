@@ -147,7 +147,7 @@ public:
 
     void buscarContacto() {
         string nombre;
-        cout << "\n  Nombre a buscar: "; cin >> nombre;
+        cout << "\n  Nombre a buscar: "; getline(cin, nombre);
         auto criterio = [nombre](Contacto c) {
             return c.getNombre() == nombre;
             };
@@ -191,7 +191,7 @@ public:
 
     void buscarUsuarioPorRol() {
         string rol;
-        cout << "\n  Rol a buscar (Vendedor/Soporte/Admin): "; cin >> rol;
+        cout << "\n  Rol a buscar (Vendedor/Soporte/Admin): "; getline(cin, rol);
         auto criterio = [rol](UsuarioCRM u) {
             return u.getRol() == rol;
             };
@@ -281,7 +281,7 @@ public:
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
             cout << "  Opcion: "; cin >> opcion;
-
+            cin.ignore();
             switch (opcion) {
             case 1:  agregarCuenta();                  break;
             case 2:  listarCuentas();                  break;

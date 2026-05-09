@@ -49,9 +49,9 @@ public:
 
     // Ingresar por consola
     void ingresar() {
-        cout << "   Pais     : "; cin >> pais;
-        cout << "   Ciudad   : "; cin >> ciudad;
-        cout << "   Distrito : "; cin >> distrito;
-        cout << "   Calle    : "; cin >> calle;
+        cout << "   Pais     : "; getline(cin, pais);
+        cout << "   Ciudad   : "; getline(cin, ciudad);
+        cout << "   Distrito : "; getline(cin, distrito);
+        cout << "   Calle    : "; getline(cin, calle);
     }
 };

@@ -45,8 +45,9 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Asunto                        : "; cin >> asunto;
-        cout << "  Estado (Abierto/Cerrado)      : "; cin >> estado;
-        cout << "  Prioridad (Alta/Media/Baja)   : "; cin >> prioridad;
+        cout << "  Asunto                        : "; getline(cin, asunto);
+        cout << "  Estado (Abierto/Cerrado)      : ";getline(cin, estado);
+        cout << "  Prioridad (Alta/Media/Baja)   : "; getline(cin, prioridad);
+        cout << "  ID del caso: "; cin >> id;
     }
 };

@@ -40,15 +40,15 @@ public:
     void mostrar() {
         cout << "  ID             : " << id << endl;
         cout << "  Titulo         : " << titulo << endl;
-        cout << "  Valor Esperado : $" << valorEsperado << endl;
+        cout << "  Valor Esperado : S/." << valorEsperado << endl;
         cout << "  Fase           : " << fase << endl;
         cout << "  ----------------------------------------" << endl;
     }
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Titulo                              : "; cin >> titulo;
+        cout << "  Titulo                              : "; getline(cin, titulo);
         cout << "  Valor Esperado                      : "; cin >> valorEsperado;
-        cout << "  Fase (Prospeccion/Negociacion/Cerrado): "; cin >> fase;
+        cout << "  Fase (Prospeccion/Negociacion/Cerrado): "; getline(cin,fase);
     }
 };

@@ -45,8 +45,8 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Modulo Asociado           : "; cin >> moduloAsociado;
-        cout << "  Accion realizada          : "; cin >> accion;
-        cout << "  Fecha (DD/MM/AAAA)        : "; cin >> fecha;
+        cout << "  Modulo Asociado           : "; getline(cin, moduloAsociado);
+        cout << "  Accion realizada          : "; getline(cin, accion);
+        cout << "  Fecha (DD/MM/AAAA)        : "; getline(cin, fecha);
     }
 };

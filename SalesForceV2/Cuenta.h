@@ -60,11 +60,11 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Nombre    : "; cin >> nombre;
-        cout << "  Industria : "; cin >> industria;
-        cout << "  Telefono  : "; cin >> telefono;
-        cout << "  Email     : "; cin >> email;
+        cout << "  Nombre    : "; getline(cin,nombre);
+        cout << "  Industria : "; getline(cin, industria);
+        cout << "  Telefono  : "; getline(cin, telefono);
+        cout << "  Email     : "; getline(cin, email);
         cout << "  -Direccion" << endl;
-        direccion.ingresar();
+        direccion.ingresar();   
     }
 };

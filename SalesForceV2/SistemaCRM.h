@@ -43,6 +43,7 @@ public:
             cout << "  0. Salir del sistema" << endl;
             cout << "  ========================================" << endl;
             cout << "  Opcion: "; cin >> opcion;
+            cin.ignore();
 
             switch (opcion) {
             case 1:

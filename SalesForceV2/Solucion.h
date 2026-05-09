@@ -46,7 +46,7 @@ public:
     void ingresar(int nuevoId) {
         id = nuevoId;
         cout << "  ID Caso Asociado              : "; cin >> idCasoAsociado;
-        cout << "  Descripcion                   : "; cin >> descripcion;
-        cout << "  Fecha Resolucion (DD/MM/AAAA) : "; cin >> fechaResolucion;
+        cout << "  Descripcion                   : "; getline(cin, descripcion);
+        cout << "  Fecha Resolucion (DD/MM/AAAA) : "; getline(cin, fechaResolucion);
     }
 };

@@ -1,4 +1,1 @@
-4,Ailee,777,ah,de
-1,Fabricio,Videojuegos,991948072,cacerescamperonfabricio@gmail.com
-2,Papu,Ing,9872,ah@kmail.com
-3,Yolo,Streaming,yolo@kmail.com,MX
+2,keira,peru,9393,kaiker

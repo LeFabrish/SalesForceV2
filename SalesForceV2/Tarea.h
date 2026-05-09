@@ -45,8 +45,8 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Descripcion                      : "; cin >> descripcion;
-        cout << "  Estado (Pendiente/Completada)    : "; cin >> estado;
-        cout << "  Fecha Limite (DD/MM/AAAA)        : "; cin >> fechaLimite;
+        cout << "  Descripcion                      : "; getline(cin, descripcion);
+        cout << "  Estado (Pendiente/Completada)    : "; getline(cin, estado);
+        cout << "  Fecha Limite (DD/MM/AAAA)        : "; getline(cin, fechaLimite);
     }
 };

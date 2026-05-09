@@ -80,7 +80,7 @@ public:
 
     void buscarOportunidad() {
         string titulo;
-        cout << "\n  Titulo a buscar: "; cin >> titulo;
+        cout << "\n  Titulo a buscar: "; getline(cin, titulo);
         auto criterio = [titulo](Oportunidad op) {
             return op.getTitulo() == titulo;
             };
@@ -116,7 +116,7 @@ public:
     void mostrarProductosPremium() {
         double precioMinimo;
         cout << "\n  Precio minimo para filtrar: "; cin >> precioMinimo;
-        cout << "\n  === PRODUCTOS PREMIUM (Mayor a $" << precioMinimo << ") ===" << endl;
+        cout << "\n  === PRODUCTOS PREMIUM (Mayor a S/." << precioMinimo << ") ===" << endl;
         auto esPremium = [precioMinimo](Producto p) {
             return p.getPrecio() >= precioMinimo;
             };
@@ -234,7 +234,7 @@ public:
         NodoS<double>* actual = lista->getCabeza();
         int i = 1;
         while (actual != nullptr) {
-            cout << "  [" << i++ << "] $" << actual->dato << endl;
+            cout << "  [" << i++ << "] S/." << actual->dato << endl;
             actual = actual->siguiente;
         }
         cout << "  Total: " << lista->getTamanio() << " registros." << endl;
@@ -317,6 +317,7 @@ public:
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
             cout << "  Opcion: "; cin >> opcion;
+            cin.ignore();
 
             switch (opcion) {
             case 1:  registrarCliente();                break;
