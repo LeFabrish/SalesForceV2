@@ -64,7 +64,7 @@ public:
         cout << "  Industria : "; cin >> industria;
         cout << "  Telefono  : "; cin >> telefono;
         cout << "  Email     : "; cin >> email;
-        cout << "  Direccion :" << endl;
+        cout << "  -Direccion" << endl;
         direccion.ingresar();
     }
 };
