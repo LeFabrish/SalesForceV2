@@ -247,60 +247,159 @@ public:
             << idContacto << ": " << total << endl;
     }
 
+    void subMenuCuentas() {
+
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "            Gestor de Cuentas" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Agregar cuenta nueva" << endl;
+            cout << "  2. Mostrar todas las cuentas" << endl;
+            cout << "  3. Buscar cuenta por nombre" << endl;
+            cout << "  4. Ordenar cuentas por nombre" << endl;
+            cout << "  5. Eliminar cuenta" << endl;
+            cout << "  6. Guardar cuentas" << endl;
+            cout << "  7. Cargar Cuentas" << endl;
+            cout << "  0. Volver a Gestion de Clientes" << endl;
+            cout << "  ========================================" << endl;
+                cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion)
+            {
+            case 1:  agregarCuenta();                  break;
+            case 2:  listarCuentas();                  break;
+            case 3:  buscarCuenta();                   break;
+            case 4:  ordenarCuentasPorNombre();        break;
+            case 5:  eliminarCuenta();        break;
+            case 6:  guardarCuentas();        break;
+            case 7:  cargarCuentas();        break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+
+            system("pause");
+        }
+    }
+
+    void subMenuContactos() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "            Gestor de Contactos" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Agregar contacto nuevo" << endl;
+            cout << "  2. Mostrar todos los contactos " << endl;
+            cout << "  3. Buscar contacto" << endl;
+            cout << "  4. Ordenar contactos por apellido" << endl;
+            cout << "  0. Volver a Gestion de Clientes" << endl;
+            cout << "  ========================================" << endl;
+                cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion)
+            {
+            case 1:  agregarContacto();                  break;
+            case 2:  listarContactos();                  break;
+            case 3:  buscarContacto();                   break;
+            case 4:  ordenarContactosPorApellido();        break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+
+            system("pause");
+        }
+
+
+    }
+
+    void subMenuUsuarios() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "            Gestor de Usuarios" << endl;
+            cout << "  ========================================" << endl;
+                cout << "  1. Agregar usuario nuevo" << endl;
+            cout << "  2. Mostrar todos los usuarios " << endl;
+            cout << "  3. Buscar usuario por rol" << endl;
+            cout << "  0. Volver a Gestion de Clientes" << endl;
+            cout << "  ========================================" << endl;
+                cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion)
+            {
+            case 1:  agregarUsuario();                  break;
+            case 2:  listarUsuarios();                  break;
+            case 3:  buscarUsuarioPorRol();                   break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+
+    }
+
+    void subMenuInteracciones() {
+
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "            Gestor de Interacciones" << endl;
+            cout << "  ========================================" << endl;
+                cout << "  1. Agregar interaccion" << endl;
+            cout << "  2. Mostrar todas las interacciones " << endl;
+            cout << "  3. Mostrar interacciones recientes" << endl;
+            cout << "  4. Contar interacciones por contacto" << endl;
+            cout << "  0. Volver a Gestion de Clientes" << endl;
+            cout << "  ========================================" << endl;
+                cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion)
+            {
+            case 1:  agregarInteraccion();                  break;
+            case 2:  listarInteracciones();                  break;
+            case 3:  listarInteraccionesInverso();                   break;
+            case 4:  contarInteraccionesPorContacto();        break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+
+            system("pause");
+        }
+
+    }
+
     // ─────────────────────────────────────────
     //  MENU
     // ─────────────────────────────────────────
     void menu() {
         int opcion;
         while (1) {
+            system("cls");
             cout << "\n  ========================================" << endl;
-            cout << "       MODULO 1 - GESTION DE CLIENTES   " << endl;
+            cout << "             GESTION DE CLIENTES   " << endl;
             cout << "  ========================================" << endl;
-            cout << "  --- Cuentas ---" << endl;
-            cout << "  1. Agregar Cuenta" << endl;
-            cout << "  2. Listar Cuentas" << endl;
-            cout << "  3. Buscar Cuenta" << endl;
-            cout << "  4. Ordenar Cuentas por Nombre" << endl;
-            cout << "  5. Eliminar Cuenta" << endl;
-            cout << "  6. Guardar Cuentas en archivo" << endl;
-            cout << "  7. Cargar Cuentas desde archivo" << endl;
-            cout << "  --- Contactos ---" << endl;
-            cout << "  8. Agregar Contacto" << endl;
-            cout << "  9. Listar Contactos" << endl;
-            cout << "  10. Buscar Contacto" << endl;
-            cout << "  11. Ordenar Contactos por Apellido" << endl;
-            cout << "  --- Usuarios ---" << endl;
-            cout << "  12. Agregar Usuario" << endl;
-            cout << "  13. Listar Usuarios" << endl;
-            cout << "  14. Buscar Usuario por Rol" << endl;
-            cout << "  --- Interacciones ---" << endl;
-            cout << "  15. Agregar Interaccion" << endl;
-            cout << "  16. Listar Interacciones" << endl;
-            cout << "  17. Listar Interacciones (recientes)" << endl;
-            cout << "  18. Contar Interacciones por Contacto" << endl;
+            cout << "  1. Ver cuentas" << endl;
+            cout << "  2. Ver contactos" << endl;
+            cout << "  3. Ver usuarios" << endl;
+            cout << "  4. Ver interacciones" << endl;
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
-            cout << "  Opcion: "; cin >> opcion;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
             cin.ignore();
+            system("cls");
             switch (opcion) {
-            case 1:  agregarCuenta();                  break;
-            case 2:  listarCuentas();                  break;
-            case 3:  buscarCuenta();                   break;
-            case 4:  ordenarCuentasPorNombre();        break;
-            case 5:  eliminarCuenta();                 break;
-            case 6:  guardarCuentas();                 break;
-            case 7:  cargarCuentas();                  break;
-            case 8:  agregarContacto();                break;
-            case 9:  listarContactos();                break;
-            case 10: buscarContacto();                 break;
-            case 11: ordenarContactosPorApellido();    break;
-            case 12: agregarUsuario();                 break;
-            case 13: listarUsuarios();                 break;
-            case 14: buscarUsuarioPorRol();            break;
-            case 15: agregarInteraccion();             break;
-            case 16: listarInteracciones();            break;
-            case 17: listarInteraccionesInverso();     break;
-            case 18: contarInteraccionesPorContacto(); break;
+            case 1:  subMenuCuentas();                  break;
+            case 2:  subMenuContactos();                  break;
+            case 3:  subMenuUsuarios();                   break;
+            case 4:  subMenuInteracciones();        break;
             case 0:  return;
             default: cout << "  [!] Opcion invalida." << endl;
             }

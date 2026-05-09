@@ -201,7 +201,7 @@ public:
 
     void buscarCasoPorId() {
         int id;
-        cout << "\n  ID del Caso a buscar: ";cin>> id;
+        cout << "\n  ID del Caso a buscar: "; cin >> id;
         bool encontrado = buscarCasoRec(colaCasos.getFrenteNodo(), id);
         if (encontrado)
             cout << "  [OK] Caso #" << id << " encontrado." << endl;
@@ -252,61 +252,192 @@ public:
     }
 
     // ─────────────────────────────────────────
-    //  MENU
+    //  SUBMENUS
+    // ─────────────────────────────────────────
+    void subMenuCasos() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "              Gestion de Casos           " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Registrar caso" << endl;
+            cout << "  2. Atender siguiente caso (Cola)" << endl;
+            cout << "  3. Ver casos pendientes" << endl;
+            cout << "  4. Buscar caso por ID (Recursivo)" << endl;
+            cout << "  0. Volver a Operaciones y Soporte" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  registrarCaso();    break;
+            case 2:  atenderCaso();      break;
+            case 3:  mostrarCasos();     break;
+            case 4:  buscarCasoPorId();  break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuSoluciones() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "           Gestion de Soluciones         " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Registrar solucion" << endl;
+            cout << "  2. Ver ultima solucion" << endl;
+            cout << "  3. Ver todas las soluciones" << endl;
+            cout << "  0. Volver a Operaciones y Soporte" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  registrarSolucion();   break;
+            case 2:  verUltimaSolucion();   break;
+            case 3:  mostrarSoluciones();   break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuTareas() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "             Gestion de Tareas           " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Agregar tarea" << endl;
+            cout << "  2. Atender siguiente tarea (Cola)" << endl;
+            cout << "  3. Ver tareas pendientes" << endl;
+            cout << "  0. Volver a Operaciones y Soporte" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  agregarTarea();   break;
+            case 2:  atenderTarea();   break;
+            case 3:  mostrarTareas();  break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuEventos() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "             Gestion de Eventos          " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Agregar evento" << endl;
+            cout << "  2. Ver todos los eventos" << endl;
+            cout << "  3. Buscar evento" << endl;
+            cout << "  0. Volver a Operaciones y Soporte" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  agregarEvento();   break;
+            case 2:  mostrarEventos();  break;
+            case 3:  buscarEvento();    break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuHistorial() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "           Gestion de Historial          " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Registrar en historial" << endl;
+            cout << "  2. Ver ultimo registro" << endl;
+            cout << "  3. Ver historial completo" << endl;
+            cout << "  0. Volver a Operaciones y Soporte" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  registrarHistorial();  break;
+            case 2:  verUltimoHistorial();  break;
+            case 3:  mostrarHistorial();    break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuArchivos() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "                 Archivos                " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Guardar casos" << endl;
+            cout << "  2. Cargar casos" << endl;
+            cout << "  0. Volver a Operaciones y Soporte" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  guardarCasos();  break;
+            case 2:  cargarCasos();   break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    // ─────────────────────────────────────────
+    //  MENU PRINCIPAL
     // ─────────────────────────────────────────
     void menu() {
         int opcion;
         while (1) {
+            system("cls");
             cout << "\n  ========================================" << endl;
-            cout << "     MODULO 3 - OPERACIONES Y SOPORTE   " << endl;
+            cout << "             OPERACIONES Y SOPORTE    " << endl;
             cout << "  ========================================" << endl;
-            cout << "  --- Casos ---" << endl;
-            cout << "  1. Registrar Caso" << endl;
-            cout << "  2. Atender siguiente Caso (Cola)" << endl;
-            cout << "  3. Ver Casos pendientes" << endl;
-            cout << "  4. Buscar Caso por ID (Recursivo)" << endl;
-            cout << "  --- Soluciones ---" << endl;
-            cout << "  5. Registrar Solucion" << endl;
-            cout << "  6. Ver ultima Solucion" << endl;
-            cout << "  7. Ver todas las Soluciones" << endl;
-            cout << "  --- Tareas ---" << endl;
-            cout << "  8. Agregar Tarea" << endl;
-            cout << "  9. Atender siguiente Tarea (Cola)" << endl;
-            cout << "  10. Ver Tareas pendientes" << endl;
-            cout << "  --- Eventos ---" << endl;
-            cout << "  11. Agregar Evento" << endl;
-            cout << "  12. Ver Eventos" << endl;
-            cout << "  13. Buscar Evento" << endl;
-            cout << "  --- Historial ---" << endl;
-            cout << "  14. Registrar en Historial" << endl;
-            cout << "  15. Ver ultimo registro" << endl;
-            cout << "  16. Ver Historial completo" << endl;
-            cout << "  --- Archivos ---" << endl;
-            cout << "  17. Guardar Casos" << endl;
-            cout << "  18. Cargar Casos" << endl;
+            cout << "  1. Casos" << endl;
+            cout << "  2. Soluciones" << endl;
+            cout << "  3. Tareas" << endl;
+            cout << "  4. Eventos" << endl;
+            cout << "  5. Historial" << endl;
+            cout << "  6. Archivos" << endl;
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
-            cout << "  Opcion: "; cin >> opcion;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
             cin.ignore();
+            system("cls");
             switch (opcion) {
-            case 1:  registrarCaso();      break;
-            case 2:  atenderCaso();        break;
-            case 3:  mostrarCasos();       break;
-            case 4:  buscarCasoPorId();    break;
-            case 5:  registrarSolucion();  break;
-            case 6:  verUltimaSolucion();  break;
-            case 7:  mostrarSoluciones();  break;
-            case 8:  agregarTarea();       break;
-            case 9:  atenderTarea();       break;
-            case 10: mostrarTareas();      break;
-            case 11: agregarEvento();      break;
-            case 12: mostrarEventos();     break;
-            case 13: buscarEvento();       break;
-            case 14: registrarHistorial(); break;
-            case 15: verUltimoHistorial(); break;
-            case 16: mostrarHistorial();   break;
-            case 17: guardarCasos();       break;
-            case 18: cargarCasos();        break;
+            case 1:  subMenuCasos();       break;
+            case 2:  subMenuSoluciones();  break;
+            case 3:  subMenuTareas();      break;
+            case 4:  subMenuEventos();     break;
+            case 5:  subMenuHistorial();   break;
+            case 6:  subMenuArchivos();    break;
             case 0:  return;
             default: cout << "  [!] Opcion invalida." << endl;
             }

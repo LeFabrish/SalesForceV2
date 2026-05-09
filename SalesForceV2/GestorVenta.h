@@ -166,10 +166,9 @@ public:
         cout << "\n  Valor total en oportunidades: $" << total << endl;
     }
 
-
     // ─────────────────────────────────────────
-//  DATASET + BURBUJA OPTIMIZADA
-// ─────────────────────────────────────────
+    //  DATASET + BURBUJA OPTIMIZADA
+    // ─────────────────────────────────────────
     void generarDataSet() {
         ofstream archivo("dataset_precios.txt");
         if (!archivo.is_open()) {
@@ -242,8 +241,8 @@ public:
     }
 
     // ─────────────────────────────────────────
-//  ARCHIVOS - PRODUCTOS
-// ─────────────────────────────────────────
+    //  ARCHIVOS - PRODUCTOS
+    // ─────────────────────────────────────────
     void guardarProductos() {
         ListaSimple<string>* lineas = new ListaSimple<string>();
         NodoS<Producto>* actual = catalogoProductos.getCabeza();
@@ -284,58 +283,188 @@ public:
     }
 
     // ─────────────────────────────────────────
-    //  MENU
+    //  SUBMENUS
+    // ─────────────────────────────────────────
+    void subMenuClientes() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "         Clientes Potenciales            " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Registrar cliente potencial" << endl;
+            cout << "  2. Atender siguiente cliente (Cola)" << endl;
+            cout << "  0. Volver al Embudo de Ventas" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  registrarCliente();          break;
+            case 2:  atenderSiguienteCliente();   break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuOportunidades() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "           Oportunidades Comerciales     " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Crear oportunidad comercial" << endl;
+            cout << "  2. Ver embudo de ventas" << endl;
+            cout << "  3. Buscar oportunidad" << endl;
+            cout << "  4. Ordenar oportunidades por valor" << endl;
+            cout << "  5. Ver valor total (Recursivo)" << endl;
+            cout << "  0. Volver al Embudo de Ventas" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  crearOportunidad();                   break;
+            case 2:  mostrarEmbudo();                      break;
+            case 3:  buscarOportunidad();                  break;
+            case 4:  ordenarOportunidadesPorValor();       break;
+            case 5:  mostrarValorTotalOportunidades();     break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuProductos() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "           Catalogo de Productos         " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Agregar producto" << endl;
+            cout << "  2. Ver productos premium" << endl;
+            cout << "  0. Volver al Embudo de Ventas" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  agregarProducto();          break;
+            case 2:  mostrarProductosPremium();  break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuCotizacionesContratos() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "        Cotizaciones y Contratos         " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Generar cotizacion" << endl;
+            cout << "  2. Cerrar contrato" << endl;
+            cout << "  0. Volver al Embudo de Ventas" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  generarCotizacion();  break;
+            case 2:  cerrarContrato();     break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuDataset() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "         Dataset y Ordenamiento          " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Generar dataset de precios" << endl;
+            cout << "  2. Ver dataset desordenado" << endl;
+            cout << "  3. Ver dataset ordenado (Burbuja Opt.)" << endl;
+            cout << "  0. Volver al Embudo de Ventas" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  generarDataSet();          break;
+            case 2:  verDataSetDesordenado();   break;
+            case 3:  verDataSetOrdenado();      break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    void subMenuArchivos() {
+        int opcion;
+        while (1) {
+            system("cls");
+            cout << "\n  ========================================" << endl;
+            cout << "                  Archivos                  " << endl;
+            cout << "  ========================================" << endl;
+            cout << "  1. Guardar productos" << endl;
+            cout << "  2. Cargar productos" << endl;
+            cout << "  0. Volver al Embudo de Ventas" << endl;
+            cout << "  ========================================" << endl;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
+            cin.ignore();
+            system("cls");
+            switch (opcion) {
+            case 1:  guardarProductos();  break;
+            case 2:  cargarProductos();   break;
+            case 0:  return;
+            default: cout << "  [!] Opcion invalida." << endl;
+            }
+            system("pause");
+        }
+    }
+
+    // ─────────────────────────────────────────
+    //  MENU PRINCIPAL
     // ─────────────────────────────────────────
     void menuPrincipal() {
         int opcion;
         while (1) {
+            system("cls");
             cout << "\n  ========================================" << endl;
-            cout << "     MODULO 2 - EMBUDO DE VENTAS         " << endl;
+            cout << "             EMBUDO DE VENTAS       " << endl;
             cout << "  ========================================" << endl;
-            cout << "  --- Clientes Potenciales ---" << endl;
-            cout << "  1. Registrar Cliente Potencial" << endl;
-            cout << "  2. Atender siguiente Cliente (Cola)" << endl;
-            cout << "  --- Oportunidades ---" << endl;
-            cout << "  3. Crear Oportunidad Comercial" << endl;
-            cout << "  4. Ver Embudo de Ventas" << endl;
-            cout << "  5. Buscar Oportunidad" << endl;
-            cout << "  6. Ordenar Oportunidades por Valor" << endl;
-            cout << "  7. Ver Valor Total (Recursivo)" << endl;
-            cout << "  --- Productos ---" << endl;
-            cout << "  8. Agregar Producto" << endl;
-            cout << "  9. Ver Productos Premium" << endl;
-            cout << "  --- Cotizaciones y Contratos ---" << endl;
-            cout << "  10. Generar Cotizacion" << endl;
-            cout << "  11. Cerrar Contrato" << endl;
-            cout << "  --- Dataset y Ordenamiento ---" << endl;
-            cout << "  12. Generar Dataset de precios" << endl;
-            cout << "  13. Ver Dataset Desordenado" << endl;
-            cout << "  14. Ver Dataset Ordenado (Burbuja Opt.)" << endl;
-            cout << "  --- Archivos ---" << endl;
-            cout << "  15. Guardar Productos" << endl;
-            cout << "  16. Cargar Productos" << endl;
+            cout << "  1. Clientes potenciales" << endl;
+            cout << "  2. Oportunidades comerciales" << endl;
+            cout << "  3. Catalogo de productos" << endl;
+            cout << "  4. Cotizaciones y contratos" << endl;
+            cout << "  5. Dataset y ordenamiento" << endl;
+            cout << "  6. Productos" << endl;
             cout << "  0. Volver al menu principal" << endl;
             cout << "  ========================================" << endl;
-            cout << "  Opcion: "; cin >> opcion;
+            cout << "  Seleccione una opcion: "; cin >> opcion;
             cin.ignore();
-
+            system("cls");
             switch (opcion) {
-            case 1:  registrarCliente();                break;
-            case 2:  atenderSiguienteCliente();         break;
-            case 3:  crearOportunidad();                break;
-            case 4:  mostrarEmbudo();                   break;
-            case 5:  buscarOportunidad();               break;
-            case 6:  ordenarOportunidadesPorValor();    break;
-            case 7:  mostrarValorTotalOportunidades();  break;
-            case 8:  agregarProducto();                 break;
-            case 9:  mostrarProductosPremium();         break;
-            case 10: generarCotizacion();               break;
-            case 11: cerrarContrato();                  break;
-            case 12: generarDataSet();                  break;
-            case 13: verDataSetDesordenado();           break;
-            case 14: verDataSetOrdenado();              break;
-            case 15: guardarProductos();                break;
-            case 16: cargarProductos();                 break;
+            case 1:  subMenuClientes();               break;
+            case 2:  subMenuOportunidades();          break;
+            case 3:  subMenuProductos();              break;
+            case 4:  subMenuCotizacionesContratos();  break;
+            case 5:  subMenuDataset();                break;
+            case 6:  subMenuArchivos();               break;
             case 0:  return;
             default: cout << "  [!] Opcion invalida." << endl;
             }

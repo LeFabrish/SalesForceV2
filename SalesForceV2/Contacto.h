@@ -78,7 +78,8 @@ public:
         cout << "  Telefono  : "; cin >> telefono;
         cout << "  Email     : "; cin >> email;
         cout << "  ID Cuenta : "; cin >> idCuenta;
-        cout << "  Direccion :" << endl;
+        cin.ignore();
+        cout << "  Direccion \n";
         direccion.ingresar();
     }
 };
