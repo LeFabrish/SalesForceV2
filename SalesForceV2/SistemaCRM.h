@@ -126,6 +126,7 @@ public:
                 system("cls");
                 break;
             case 0:
+                mostrarBienvenida();
                 cout << "\n  Cerrando SalesForce CRM..." << endl;
                 cout << "  Hasta luego." << endl;
 
