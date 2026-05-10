@@ -80,7 +80,7 @@ public:
 
     void buscarOportunidad() {
         string titulo;
-        cout << "\n  Titulo a buscar: "; getline(cin, titulo);
+        cout << "\n  Titulo a buscar: "; cin >> titulo;
         auto criterio = [titulo](Oportunidad op) {
             return op.getTitulo() == titulo;
             };
@@ -163,7 +163,7 @@ public:
 
     void mostrarValorTotalOportunidades() {
         double total = sumarOportunidadesRec(listaOportunidades.getCabeza());
-        cout << "\n  Valor total en oportunidades: $" << total << endl;
+        cout << "\n  Valor total en oportunidades: S/." << total << endl;
     }
 
     // ─────────────────────────────────────────
@@ -203,7 +203,7 @@ public:
         NodoS<double>* actual = lista->getCabeza();
         int i = 1;
         while (actual != nullptr) {
-            cout << "  [" << i++ << "] $" << actual->dato << endl;
+            cout << "  [" << i++ << "] S/." << actual->dato << endl;
             actual = actual->siguiente;
         }
         cout << "  Total: " << lista->getTamanio() << " registros." << endl;

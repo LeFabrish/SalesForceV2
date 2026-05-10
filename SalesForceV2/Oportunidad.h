@@ -47,8 +47,8 @@ public:
 
     void ingresar(int nuevoId) {
         id = nuevoId;
-        cout << "  Titulo                              : "; getline(cin, titulo);
+        cout << "  Titulo                              : "; cin >> titulo;
         cout << "  Valor Esperado                      : "; cin >> valorEsperado;
-        cout << "  Fase (Prospeccion/Negociacion/Cerrado): "; getline(cin,fase);
+        cout << "  Fase (Prospeccion/Negociacion/Cerrado): "; cin >> fase;
     }
 };

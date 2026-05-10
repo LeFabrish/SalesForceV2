@@ -69,7 +69,7 @@ public:
 
                 int colorWindows = 0; 
 
-                // Tu traductor de colores:
+                
                 if (miNumero == 0) {
                     colorWindows = 0;  // 0 = Fondo Negro
                 }
@@ -107,6 +107,8 @@ public:
             cout << "  0. Salir del sistema" << endl;
             cout << "  ========================================" << endl;
             cout << "  Seleccione una opcion: "; cin >> opcion;
+
+            
             cin.ignore();
             system("cls");
             switch (opcion) {
@@ -126,6 +128,7 @@ public:
             case 0:
                 cout << "\n  Cerrando SalesForce CRM..." << endl;
                 cout << "  Hasta luego." << endl;
+
                 return;
             default:
                 cout << "  [!] Opcion invalida." << endl;
