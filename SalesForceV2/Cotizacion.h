@@ -39,16 +39,17 @@ public:
 
     void mostrar() {
         cout << "  ID               : " << id << endl;
-        cout << "  Total            : $" << total << endl;
+        cout << "  Total            : S/." << total << endl;
         cout << "  Fecha Vencimiento: " << fechaVencimiento << endl;
         cout << "  Estado           : " << estado << endl;
         cout << "  ----------------------------------------" << endl;
     }
 
     void ingresar(int nuevoId) {
+       
         id = nuevoId;
         cout << "  Total                      : "; cin >> total;
-        cout << "  Fecha Vencimiento (DD/MM/AA): "; getline(cin,fechaVencimiento);
+        cout << "  Fecha Vencimiento (DD/MM/AA): "; cin>>fechaVencimiento;
         cout << "  Estado (Pendiente/Aceptada/Rechazada): "; cin >> estado;
     }
 };

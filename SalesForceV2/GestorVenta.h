@@ -176,6 +176,7 @@ public:
             return;
         }
         // Semilla fija para reproducibilidad
+
         mt19937 rng(42);
         uniform_real_distribution<double> dist(10.0, 9999.0);
 
