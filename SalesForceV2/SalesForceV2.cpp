@@ -5,7 +5,6 @@ using namespace std;
 using namespace System;
 
 int main() {
-    Console::SetWindowSize(120, 150);
 
     SistemaCRM* crm;
     crm = new SistemaCRM();

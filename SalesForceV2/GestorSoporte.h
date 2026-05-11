@@ -193,18 +193,20 @@ public:
     // ─────────────────────────────────────────
     //  RECURSIVIDAD
     // ─────────────────────────────────────────
-    bool buscarCasoRec(NodoS<Caso>* nodo, int idBuscado) {
-        if (nodo == nullptr) return false;
-        if (nodo->dato.getId() == idBuscado) return true;
+    NodoS<Caso>* buscarCasoRec(NodoS<Caso>* nodo, int idBuscado) {
+        if (nodo == nullptr) return nullptr;
+        if (nodo->dato.getId() == idBuscado) return nodo;
         return buscarCasoRec(nodo->siguiente, idBuscado);
     }
 
     void buscarCasoPorId() {
         int id;
         cout << "\n  ID del Caso a buscar: "; cin >> id;
-        bool encontrado = buscarCasoRec(colaCasos.getFrenteNodo(), id);
-        if (encontrado)
-            cout << "  [OK] Caso #" << id << " encontrado." << endl;
+        NodoS<Caso>* resultado = buscarCasoRec(colaCasos.getFrenteNodo(), id);
+        if (resultado != nullptr) {
+            cout << "\n  [OK] Caso encontrado:" << endl;
+            resultado->dato.mostrar();
+        }
         else
             cout << "  [!] Caso #" << id << " no encontrado." << endl;
     }
